@@ -1,27 +1,49 @@
 package com.Projet6.Client.Controller;
+import com.Projet6.Client.Model.NodeDegree;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.Projet6.Client.Model.Node;
-
+import java.io.IOException;
 import java.util.ArrayList;
 
-
 /**
- * Interface with methods that translate Node to JSON,
- * and JSON to Node
+ * Class with methods that translate Object to JSON,
+ * and JSON to Object
  */
-public interface JSONController
+public class JSONController
 {
     /**
      * Transform the given node to JSON text
-     * @param nodeParam Node to transform
+     * @param objectParam Object to transform
      * @return JSON Text representing the node
      */
-    public String toJSON(Node nodeParam);
+    public String toJSON(Object objectParam)
+    {
+        String jsonInString = "Error";
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            jsonInString = mapper.writeValueAsString(objectParam);
+        } catch (JsonProcessingException e)
+        {
+            e.printStackTrace();
+        }
+        return jsonInString;
+    }
 
     /**
      * Transform the string to a list of nodes
-     * @param JSONParam JSON Text representing a list of nodes
-     * @return A list of Nodes
+     * @param JSONParam JSON Text representing an Object
+     * @return A NodeDegree
      */
-    public ArrayList<Node> fromJSON(String JSONParam);
+    public NodeDegree getNodeDegree(String JSONParam)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        NodeDegree obj = null;
+        try {
+            obj = mapper.readValue(JSONParam, NodeDegree.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
 }
