@@ -1,6 +1,10 @@
 package com.Projet6.Client.Model;
 
 
+import com.Projet6.Client.Controller.JSONController;
+
+import java.util.ArrayList;
+
 /**
  * Class that will format and send the data to
  * the server
@@ -27,7 +31,12 @@ public class DataToSendRoute extends DataToSend
      * Function that sends the data to the server
      */
     @Override
-    void send() {
-
+    public void send()
+    {
+        ArrayList<Node> nodesToSend = new ArrayList<>();
+        nodesToSend.add(getInitialNode());
+        nodesToSend.add(destinationNode);
+        String JSONtoSend = JSONController.toJSON(nodesToSend);
+        System.out.println(JSONtoSend);
     }
 }

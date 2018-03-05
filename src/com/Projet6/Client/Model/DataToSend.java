@@ -21,6 +21,23 @@ public abstract class DataToSend
     }
 
     /**
+     * Getter for the initial node
+     * @return Initial node
+     */
+    public Node getInitialNode() {
+        return initialNode;
+    }
+
+
+    /**
+     * Setter for the initial node
+     * @param initialNode The new initial node
+     */
+    public void setInitialNode(Node initialNode) {
+        this.initialNode = initialNode;
+    }
+
+    /**
      * Function that sends the data to the server
      */
     abstract void send();

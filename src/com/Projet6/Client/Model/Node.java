@@ -10,20 +10,56 @@ public abstract class Node
     /**
      * Represents the ID of the node
      */
-    private int idNoeud;
+    private int idNode;
     /**
      * Represents the name of the node
      */
-    private int name;
+    private String name;
+
+
+    public Node() {
+    }
 
     /**
      * Constructor of the node
-     * @param idNoeud the ID of the node
+     * @param idNode the ID of the node
      * @param name the name of the node
      */
-    public Node(int idNoeud, int name)
+    public Node(int idNode, String name)
     {
-        this.idNoeud = idNoeud;
+        this.idNode = idNode;
+        this.name = name;
+    }
+
+    /**
+     * Obtains the ID of the node
+     * @return the ID of the node
+     */
+    public int getIdNode() {
+        return idNode;
+    }
+
+    /**
+     * Set the ID of the node
+     * @param idNode the new ID Node
+     */
+    public void setIdNode(int idNode) {
+        this.idNode = idNode;
+    }
+
+    /**
+     * Get the name of the node
+     * @return String with the name of the node
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Set the name of the node
+     * @param name The new name of the node
+     */
+    public void setName(String name) {
         this.name = name;
     }
 }
