@@ -29,6 +29,7 @@ public class DataToSendRoute extends DataToSend
 
     /**
      * Function that sends the data to the server
+     *
      */
     @Override
     public void send()
