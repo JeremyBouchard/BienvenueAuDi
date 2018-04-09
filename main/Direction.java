@@ -1,4 +1,5 @@
 package main;
-public enum Direction {
 
+public enum Direction {
+	
 }
