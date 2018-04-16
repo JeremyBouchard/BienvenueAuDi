@@ -1,4 +1,6 @@
-package projectModel;
+package main;
+
+import java.io.Serializable;
 
 /**
  *  Enumeration that lists all the possible type
@@ -6,7 +8,7 @@ package projectModel;
  *  @author Aymane RAMACH, Michel NGATIMO, Morad SANBA
  */
 
-public enum Type
+public enum Type implements Serializable
 {
     Amphis("Amphis"),
     SallesTD("Salles TD"),
