@@ -19,14 +19,13 @@ public class Vertex  implements Serializable{
 	
 	/**
 	 * Constructor
-	 * @param id
 	 * @param name
 	 * @param type
 	 */
 	public Vertex(String name, Type type) {
 		this.setName(name);
 		this.setType(type);
-		
+		id++;
 	}
 	
 	/**
@@ -34,7 +33,7 @@ public class Vertex  implements Serializable{
 	 */
 	public Vertex()
 	{
-		
+		id++;
 	}
 
 	/**
