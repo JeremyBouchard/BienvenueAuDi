@@ -23,6 +23,9 @@ public class ApplicationHandler implements Runnable {
 	 */
 	@Override
 	public void run() {
+		// Initialisation de la toute première connexion ici avant de rentrer dans le while(1)
+		//		=>	première acquisition de l'emploi du temps dans un array list
+		
 		while (true) {
 			if (TimeHandler.getValUpdate()) {
 				// traitement à faire dans le cas où les 2H sont écoulés

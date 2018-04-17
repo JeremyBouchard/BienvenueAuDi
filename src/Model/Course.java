@@ -1,18 +1,85 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
- * 
  * @author Xavier Bouchenard
  *	An object of this class will be built once an instance of a course will be read in the 
  *		ADE file.
  */
-public class Course {
+public class Course implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Name of the course read in the ADE file
+	 */
 	private String ClassroomName;
+	
+	/**
+	 * Name of the professor for the course read in the ADE file
+	 */
 	private String ProfessorName;
+	
+	/**
+	 * Start time of the course read in the ADE file
+	 */
 	private float StartTimeC;
+	
+	/**
+	 * ENd time of the course read in the ADE file
+	 */
 	private float EndTimeC;
 	
+	/**
+	 * Constructor of the Course class
+	 * @author Xavier Bouchenard
+	 * @param classname		Name of the classroom written in the file
+	 * @param PName			Name of the professor assigned for this course
+	 * @param startT		Start time of the course
+	 * @param endT			End time of the course
+	 */
 	public Course(String classname, String PName, String startT, String endT) {
 		
 	}
+	
+	/**
+	 * Returns the name of the classroom for this course
+	 * @author Xavier Bouchenard
+	 * @return	Name of the classroom
+	 */
+	public String ClassName() {
+		return ClassroomName;
+	}
+	
+	/**
+	 * Returns the name of the professor for this course
+	 * @author Xavier Bouchenard
+	 * @return	Name of the professor
+	 */
+	public String getProfName() {
+		return ProfessorName;
+	}
+	
+	/**
+	 * Returns the start time of this course
+	 * @author Xavier Bouchenard
+	 * @return	Start time of the course
+	 */
+	public float getStartTime() {
+		return StartTimeC;
+	}
+	
+	/**
+	 * Returns the end time of this course
+	 * @author Xavier Bouchenard
+	 * @return	End time of the course
+	 */
+	public float getEndTime() {
+		return EndTimeC;
+	}
+	
 }
