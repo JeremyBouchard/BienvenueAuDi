@@ -39,11 +39,14 @@ public class Course implements Serializable{
 	 * @author Xavier Bouchenard
 	 * @param classname		Name of the classroom written in the file
 	 * @param PName			Name of the professor assigned for this course
-	 * @param startT		Start time of the course
-	 * @param endT			End time of the course
+	 * @param timeArray		Start time of the course
+	 * @param timeArray2	End time of the course
 	 */
-	public Course(String classname, String PName, String startT, String endT) {
-		
+	public Course(String classname, String PName, float timeArray, float timeArray2) {
+		ClassroomName = classname;
+		ProfessorName = PName;
+		StartTimeC = timeArray;
+		EndTimeC = timeArray2;
 	}
 	
 	/**

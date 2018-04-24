@@ -5,15 +5,34 @@ import java.util.Scanner;
 
 import Controllers.ApplicationHandler;
 
+/**
+ * Handles the actions of the user and executes the commands
+ * @author Xavier Bouchenard
+ */
 public class ADEController {
+	/**
+	 * Reads the keyboard inputs done by the user
+	 */
 	private Scanner sc = null;
+	
+	/**
+	 * Instance of the actions handler
+	 */
 	private ApplicationHandler appli = null;
 	
+	/**
+	 * Constructor of the ADEController class
+	 * @author Xavier Bouchenard
+	 */
 	public ADEController() {
 		sc = new Scanner(System.in);
 		appli = new ApplicationHandler();
 	}
 	
+	/**
+	 * Main method which is always running and asks for an operation to do
+	 * @author Xavier Bouchenard
+	 */
 	public void launch() {
 		boolean flag = true;
 		int choice;
@@ -52,24 +71,23 @@ public class ADEController {
 	}
 	
 	/**
-	 * 
+	 * Displays the actions that the user is allowed to ask
+	 * @author Xavier Bouchenard
 	 */
 	private void Actions() {
 		System.out.println("Please choose between all of these actions:");
 		System.out.println("\t1: Add a new timetable database");
 		System.out.println("\t2: Change an element of an existing timetable database");
 		System.out.println("\t3: Remove an existing timetable database");
-		System.out.println("\t4: Show all of the existing timetable databases");
+		System.out.println("\t4: Show all the existing timetable databases names");
 		System.out.println("\t0: Close the application\n");
 	}
 	
 	/**
-	 * 
-	 * @param tries
-	 * @param dptName
+	 * Prepares the elements to pass in parameter for a timetable database creation
+	 * @author Xavier Bouchenard
 	 */
 	private void AddTimeTableDB() {
-		@SuppressWarnings("unused")
 		String dptName = null;
 		String urlTimeTblDpt = null;
 		boolean tries = true;
@@ -98,7 +116,6 @@ public class ADEController {
 				System.out.println("Please try to set the correct URL of the timetable database");
 			}
 		}
-		
-		// Appel à la méthode ADEHandler pour l'ajout d'une base de données d'emploi du temps pour un département
+		appli.AddNewTimeTblDB(dptName, urlTimeTblDpt);
 	}
 }
