@@ -34,6 +34,8 @@ public class Vertex  implements Serializable{
 	public Vertex()
 	{
 		id++;
+	}
+	
 	public Vertex(int id, String name, Type type) {
 		this.name=name;
 		this.type=type;

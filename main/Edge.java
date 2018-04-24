@@ -33,7 +33,7 @@ public class Edge extends DefaultWeightedEdge{
 	/**
 	 * @return the weight
 	 */
-	public int getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 
