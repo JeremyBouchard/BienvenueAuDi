@@ -42,6 +42,17 @@ public class Information implements Serializable
         this.type = type;
         this.image = image;
     }
+    
+    /**
+     * Constructor with  the available informations
+     * @param name The name of the node
+     * @param type The type of the node
+     */
+    public Information(String name,Type type)
+    {
+    		this.name = name;
+        this.type = type;
+    }
 
     /**
      * Get the name of the node
