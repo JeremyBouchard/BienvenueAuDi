@@ -2,7 +2,7 @@ package Controllers;
 
 import SocketService.TCPClientSocket;
 
-public final class ApplicationHandler implements Runnable{
+public final class ApplicationHandler{
 	/**
 	 * Object of the class TCPClientSocket initialized at null
 	 */
@@ -14,11 +14,6 @@ public final class ApplicationHandler implements Runnable{
 	public ApplicationHandler() {
 		socket = new TCPClientSocket();
 		new Thread(new TimeHandler()).start();
-	}
-
-	@Override
-	public void run() {
-		
 	}
 
 }

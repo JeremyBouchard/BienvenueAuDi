@@ -6,17 +6,18 @@ import Controllers.ApplicationHandler;
 
 public class ADEController {
 	private Scanner sc = null;
+	private ApplicationHandler appli = null;
 	
 	public ADEController() {
-		new Thread(new ApplicationHandler()).start();
+		sc = new Scanner(System.in);
+		appli = new ApplicationHandler();
 	}
 	
 	public void launch() {
-		Scanner sc = new Scanner(System.in);
 		boolean flag = true;
 		int choice;
 		
-		System.out.println("/*************\tADE Sources Handler Application\t/*************\n\n");
+		System.out.println("/*************\tADE Sources Handler Application\t*************/\n\n");
 		
 		while (flag) {
 			Actions();
@@ -24,16 +25,21 @@ public class ADEController {
 			choice = sc.nextInt();
 			
 			switch(choice) {
-				case 1: //appli.;
+				case 1: 
+					System.out.println("Ok, j'ai bien reçu " + choice);
+					//appli.;
 					break;
-				case 2: //appli.;
+				case 2: 
+					System.out.println("Ok, j'ai bien reçu " + choice); //appli.;
 					break;
-				case 3: //appli.;
+				case 3: 
+					System.out.println("Ok, j'ai bien reçu " + choice); //appli.;
 					break;
-				case 4: //appli.;
+				case 4: 
+					System.out.println("Ok, j'ai bien reçu " + choice); //appli.;
 					break;
 				case 0: 
-					System.out.println("Closing of the application...\n");
+					System.out.println("Closing the application ...\n");
 					flag = false;
 					// Sérialisation des informations des "databases stockées" dans applicationHandler
 					// Classe ADEHandler à sérialiser => implements Serializable (faire l'import) + automatic generated id à inclure
@@ -41,8 +47,7 @@ public class ADEController {
 					sc.close();
 					break;
 				default:
-					System.out.println(choice + " is not a valid command (out of possible actions)\n\n");					
-					Actions();
+					System.out.println(choice + " is not a valid command (out of possible actions)\n");
 					break;
 			}			
 		}
