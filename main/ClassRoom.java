@@ -1,4 +1,4 @@
-package main;
+package Model;
 
 /**
  * Class representing a classorRom

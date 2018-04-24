@@ -1,7 +1,8 @@
-package main;
+package Model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
@@ -22,8 +23,21 @@ public class ShortestPath implements Serializable{
 	public List< Vertex > PathBetween(DefaultDirectedWeightedGraph<Vertex,Edge> graph,Information nod1,Information nod2)
 	{
 		DijkstraShortestPath<Vertex,Edge> shortpath= new 	DijkstraShortestPath<Vertex,Edge>(graph);
-		Vertex v1= new Vertex(nod1.getName(),nod1.getType());
-		Vertex v2= new Vertex(nod2.getName(),nod2.getType());
+		
+		Vertex v1= null;
+		Vertex v2= null;
+		Set<Vertex> myset=graph.vertexSet();
+		for(Vertex v:myset)
+		{
+			if(nod1.getName().equals(v.getName()))
+			{
+				v1=v;
+			}
+			if(nod2.getName().equals(v.getName()))
+			{
+				v2=v;
+			}
+		}
 		GraphPath<Vertex,Edge> path=shortpath.getPath(v1, v2);
 		return path.getVertexList();
 		

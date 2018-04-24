@@ -1,7 +1,9 @@
-package main;
+package Model;
 
 import java.io.*;
 import java.net.*;
+
+import org.jgrapht.graph.DefaultDirectedWeightedGraph;
 
 /**
  * Class that opens a server socket on a defined port
@@ -15,7 +17,22 @@ public class ManageConnexions implements Runnable
     private PrintWriter out;
     private ServerSocket socketserver = null;
     private Socket socket = null;
+    DefaultDirectedWeightedGraph<Vertex,Edge> graph;
 
+    public ManageConnexions(DefaultDirectedWeightedGraph<Vertex,Edge> graph)
+    {
+        try
+        {
+            socketserver = new ServerSocket(SERVER_PORT);
+            System.out.println("Le serveur est à l'écoute du port "+socketserver.getLocalPort());
+            this.graph=graph;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
     public ManageConnexions()
     {
         try
@@ -39,7 +56,25 @@ public class ManageConnexions implements Runnable
                 System.out.println("Tentative de connexion en cours...");
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 out = new PrintWriter(socket.getOutputStream());
-                new Thread(new CommandManager(socket,in, out)).run();
+                new Thread(new CommandManager(socket,in, out,graph)).run();
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public void run(DefaultDirectedWeightedGraph<Vertex,Edge> graph)
+    {
+        try
+        {
+            while(true)
+            {
+                socket = socketserver.accept();
+                System.out.println("Tentative de connexion en cours...");
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                out = new PrintWriter(socket.getOutputStream());
+                new Thread(new CommandManager(socket,in, out,graph)).run();
             }
         }
         catch (IOException e)

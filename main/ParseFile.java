@@ -1,4 +1,4 @@
-package main;
+package Model;
 
 /**
  * Class enabling us to parse files

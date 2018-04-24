@@ -1,4 +1,4 @@
-package main;
+package Model;
 
 import java.io.*;
 import java.net.Socket;
@@ -19,6 +19,7 @@ public class CommandManager implements Runnable
     private BufferedReader in;
     private PrintWriter out;
     private String message = "";
+    private DefaultDirectedWeightedGraph<Vertex,Edge> graph;
 
     /**
      * Constructor
@@ -26,25 +27,26 @@ public class CommandManager implements Runnable
      * @param in
      * @param out
      */
-    public CommandManager(Socket socket, BufferedReader in, PrintWriter out)
+    public CommandManager(Socket socket, BufferedReader in, PrintWriter out,DefaultDirectedWeightedGraph<Vertex,Edge> graph)
     {
         this.socket = socket;
         this.in = in;
         this.setOut(out);
+        this.graph=graph;
     }
 
     /**
      * 
      * @throws IOException
      */
-    public void SendInformations(DefaultDirectedWeightedGraph<Vertex,Edge> graph) throws IOException
+    public void SendInformations() throws IOException
     {
         
     		//Create a list of all nodes(information)
-        List<Information> informations =createListInformation(graph);
+        List<Information> information =createListInformation(graph);
         System.err.println("Envoi des informations ..");
         ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-        oos.writeObject(informations);
+        oos.writeObject(information);
         oos.flush();
     }
 
@@ -70,15 +72,21 @@ public class CommandManager implements Runnable
          * TODO: DO SOMETHING WITH THE FIRST AND SECOND NODE (in this case: get the route)
          */
         System.out.println(firstNode.getName() + " & " + secondNode.getName());
-        //ShortestPath.PathBetween 
-        //CalculateDirection
+        //shortestPath
+        ShortestPath path=new ShortestPath();
         //CreateNodList
+        List<Node> node=createList(path.PathBetween(graph, firstNode, secondNode));
+        //CalculateDirection
+        
+        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+        oos.writeObject(node);
+        oos.flush();
     }
 
     /**
      * thread
      */
-    public void run(DefaultDirectedWeightedGraph<Vertex,Edge> graph)
+    public void run()
     {
         while(true)
         {
@@ -87,14 +95,23 @@ public class CommandManager implements Runnable
                 message = in.readLine();
                 System.out.println("[REQUEST]" + message);
 
-                if(message.equals("GET ROUTE"))
+                if(message!=null)
                 {
-                    getRouteRequest();
+                	   if(message.equals("GET ROUTE"))
+                    {
+                        getRouteRequest();
+                    }
+                    else if(message.equals("GET INFORMATIONS"))
+                    {
+                        SendInformations();
+                    }
                 }
-                else if(message.equals("GET INFORMATIONS"))
+                else
                 {
-                    SendInformations(graph);
+                		break;
                 }
+                
+                
 
             }
             catch (IOException | ClassNotFoundException e)
@@ -125,26 +142,29 @@ public class CommandManager implements Runnable
 		Set<Vertex> vertices=graph.vertexSet();
 		for(Vertex vertex:vertices)
 		{
-			Information info=new Information(vertex.getName(),vertex.getType());
+			Information info=new Information(vertex.getName(),vertex.getType(),null);
 			list.add(info);
 		}
 		return list;
 	}
 	
-	public  List<Information> createListInformation(List<Vertex> vertices)
+	public  List<Node> createList(List<Vertex> vertices)
 	{
-		List<Information> list=new ArrayList<Information>();
+		List<Information> listIndo=new ArrayList<Information>();
 		for(Vertex vertex:vertices)
 		{
-			Information info=new Information(vertex.getName(),vertex.getType());
-			list.add(info);
+			Information info=new Information(vertex.getName(),vertex.getType(),null);
+			listIndo.add(info);
+		}
+		List<Node> list=new ArrayList<Node>();
+		for(Information i:listIndo)
+		{
+			Node node= new Node(i,Direction.North);
+			list.add(node);
+			
 		}
 		return list;
 	}
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

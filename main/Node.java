@@ -1,4 +1,6 @@
-package main;
+package Model;
+
+import java.io.Serializable;
 
 /**
  * Represents a point of the map
@@ -6,7 +8,7 @@ package main;
  * @author Aymane RAMACH, Michel NGATIMO, Morad SANBA
  */
 
-public class Node
+public class Node implements Serializable
 {
     /**
      * List all the information about a node
