@@ -1,14 +1,13 @@
-<<<<<<< HEAD
-package Model;
+
+package model;
 import java.io.IOException;
-=======
-package main;
->>>>>>> 2fec73690a5d53b58ab3916a6087a32cc78521d2
+
+
 
 import org.jgrapht.*;
 import org.jgrapht.graph.*;
 
-import Model.Vertex;
+import model.Vertex;
 
 import org.jgrapht.ext.*;
 
@@ -20,7 +19,7 @@ public class main {
 	{
 		
 	    System.out.println("test");
-<<<<<<< HEAD
+
 			
 	    DefaultDirectedWeightedGraph<Vertex,Edge>  g = new DefaultDirectedWeightedGraph<Vertex,Edge>(Edge.class);
 	
@@ -43,11 +42,10 @@ public class main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}   
-	   new Thread( new ManageConnexions(g)).run();
-=======
+
 	
 	        
-		Graph<Vertex, Edge> g = new SimpleGraph<>(Edge.class);
+		//Graph<Vertex, Edge> g = new SimpleGraph<>(Edge.class);
 		
 		
 		
@@ -63,7 +61,7 @@ public class main {
 		
 		
 		
->>>>>>> 2fec73690a5d53b58ab3916a6087a32cc78521d2
+
 	}
 
 }

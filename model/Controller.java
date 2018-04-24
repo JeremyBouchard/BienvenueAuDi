@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.io.Serializable;
 
@@ -14,5 +14,10 @@ public class Controller implements Serializable{
 	 * SerialVersion
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	
+	
+	
+	
 
 }

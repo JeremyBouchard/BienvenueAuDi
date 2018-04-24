@@ -3,7 +3,8 @@ package lire;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.Vertex;
+import model.Vertex;
+
 
 public class ReadCSVVertex extends ReadCSV
 {

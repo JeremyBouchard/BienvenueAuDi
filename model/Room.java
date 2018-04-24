@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 /**
  * Room usually a classRoom or office extending a vertex
