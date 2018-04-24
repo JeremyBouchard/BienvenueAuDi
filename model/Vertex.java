@@ -13,9 +13,20 @@ public class Vertex  implements Serializable{
 	 * SerialVersion
 	 */
 	private static final long serialVersionUID = 1L;
-	private static int id;
+	private int id;
+	
+	
+	public Vertex(int id, String name, Type type, int etage) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.type = type;
+		this.etage = etage;
+	}
+
 	private String name;
 	private Type type;
+	private int etage;
 	
 	/**
 	 * Constructor
@@ -59,7 +70,7 @@ public class Vertex  implements Serializable{
 	/**
 	 * @return the id
 	 */
-	public static int getId() {
+	public int getId() {
 		return id;
 	}
 
