@@ -1,5 +1,7 @@
 
-package projectModel;
+package main;
+
+import java.io.Serializable;
 
 /**
  *  Information about a certain node
@@ -7,9 +9,14 @@ package projectModel;
  *  @author Aymane RAMACH, Michel NGATIMO, Morad SANBA
  */
 
-public class Information
+public class Information implements Serializable
 {
     /**
+	 * SerialVersion
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * The name used as an identifier for the node
      */
     private String name;
@@ -34,6 +41,17 @@ public class Information
         this.name = name;
         this.type = type;
         this.image = image;
+    }
+    
+    /**
+     * Constructor with  the available informations
+     * @param name The name of the node
+     * @param type The type of the node
+     */
+    public Information(String name,Type type)
+    {
+    		this.name = name;
+        this.type = type;
     }
 
     /**
