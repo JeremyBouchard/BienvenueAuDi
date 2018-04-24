@@ -35,6 +35,12 @@ public class Vertex  implements Serializable{
 	{
 		id++;
 	}
+	
+	public Vertex(int id, String name, Type type) {
+		this.name=name;
+		this.type=type;
+		
+	}
 
 	/**
 	 * @return the name
