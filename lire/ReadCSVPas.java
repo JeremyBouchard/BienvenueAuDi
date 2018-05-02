@@ -14,6 +14,9 @@ public class ReadCSVPas extends ReadCSV
 		//la "matrice" de pas
 		private List<List<String>> listPas=new ArrayList<List<String>>();
 
+		public ReadCSVPas() {
+		}
+
 		public List<List<String>> getListPas() {
 			return listPas;
 		}

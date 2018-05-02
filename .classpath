@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/François/workspace/prjS8/lib/antlr4-runtime-4.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/François/workspace/prjS8/lib/commons-lang3-3.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/François/workspace/prjS8/lib/jgraph-5.13.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/François/workspace/prjS8/lib/jgrapht-core-1.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/François/workspace/prjS8/lib/jgrapht-demo-1.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/François/workspace/prjS8/lib/jgrapht-ext-1.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/François/workspace/prjS8/lib/jgrapht-ext-1.1.0-uber.jar"/>
+	<classpathentry kind="lib" path="C:/Users/François/workspace/prjS8/lib/jgrapht-io-1.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/François/workspace/prjS8/lib/jgrapht-io-1.1.0-uber.jar"/>
+	<classpathentry kind="lib" path="C:/Users/François/workspace/prjS8/lib/jgraphx-2.0.0.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path=""/>
+</classpath>

@@ -20,6 +20,11 @@ public class ReadCSVVertex extends ReadCSV
 	
 	
 	
+	public ReadCSVVertex() {
+	}
+
+
+
 	public List<List<String>> getListNoeud() {
 		return listNoeud;
 	}

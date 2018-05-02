@@ -17,6 +17,10 @@ public class ReadCSVDirection extends ReadCSV
 	private List<List<String>> listDirection=new ArrayList<List<String>>();
 	private List<List<String>> matrixDirection=new ArrayList<List<String>>();
 	
+	public ReadCSVDirection() {
+		this.initializeMatrix();
+	}
+
 	public void initializeMatrix()
 	{
 		
