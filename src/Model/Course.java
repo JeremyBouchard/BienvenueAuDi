@@ -3,14 +3,14 @@ package Model;
 import java.io.Serializable;
 
 /**
- * @author Xavier Bouchenard
  *	An object of this class will be built once an instance of a course will be read in the 
  *		ADE file.
+ * @author Xavier Bouchenard
  */
 public class Course implements Serializable{
 
 	/**
-	 * 
+	 * Value declared for the serialization
 	 */
 	private static final long serialVersionUID = 1L;
 

@@ -5,6 +5,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.TreeMap;
+
 import Model.Course;
 
 public class TCPClientSocket{
@@ -15,7 +17,7 @@ public class TCPClientSocket{
 	/**
 	 * Corresponds to the input port of the socket server 
 	 */
-	private int conPort = 3007;
+	private int conPort = 0;
 	/**
 	 * Represents the communication between the socket client and the socket server
 	 */
@@ -25,48 +27,49 @@ public class TCPClientSocket{
 	 * Constructor of the class, it has nothing to do 
 	 * 		the IP Address and communication port are fixed before the launch of the application
 	 */
-	public TCPClientSocket() {
-		
+	public TCPClientSocket(String IPAddress, int port) {
+		this.IPAddress = IPAddress;
+		conPort = port;
 	}
 
 	/**
+	 * Opens a socket connection with the socket server
 	 * @author Xavier Bouchenard
-	 * @param lCourse	List of courses 
-	 * Sends a list of courses of the current day to store for use
 	 */
-	public void sendData(ArrayList<Course> lCourse) {
+	public void OpenSocketConnection() {
 		try {
 			socket = new Socket(IPAddress, conPort);
 			System.out.println("The socket connection succeed");
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
 			System.out.println("The host machine has not been found.");
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("An erroc occured during the creation of the socket object");
 		}
-		
+	}
+	
+	/** 
+	 * Sends a list of courses of the current day to store to the main to the server application
+	 * @author Xavier Bouchenard
+	 * @param lCourse	List of coursese
+	 */
+	public void sendData(TreeMap<Float, ArrayList<Course>> lCourse) {		
 		try {
 			ObjectOutputStream obj = new ObjectOutputStream(socket.getOutputStream());
 			obj.writeObject(lCourse);
 			obj.flush();
-			obj.close();
 		} catch (IOException e) {
-			e.printStackTrace();
 			System.out.println("Failed to give information of the courses to the server.");
 		}
-		
-		closeSocketConnection();
 	}
 
 	/**
-	 * @author Xavier Bouchenard
 	 * Closes the socket connection
+	 * @author Xavier Bouchenard
 	 */
-	private void closeSocketConnection() {
+	public void closeSocketConnection() {
 		try {
 			socket.close();
 		} catch (IOException e) {
-			e.printStackTrace();
 			System.out.println("Failed to close the socket connection with the server.");
 		}
 		socket = null;

@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 import Model.Course;
@@ -24,7 +25,7 @@ import net.fortuna.ical4j.model.Component;
 public class ADEHandler implements Serializable{	
 	
 	/**
-	 * 
+	 * Value declared for the serialization
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -57,7 +58,7 @@ public class ADEHandler implements Serializable{
 	/**
 	 * Stores the courses depending on the starting time
 	 */
-	private TreeMap<Float, Course> mapCourses = null;
+	private TreeMap<Float, ArrayList<Course>> mapCourses = null;
 		
 	/**
 	 * Constructor of the class
@@ -68,7 +69,7 @@ public class ADEHandler implements Serializable{
 	public ADEHandler(String dptName, String url) {
 		this.dptName = dptName;
 		
-		mapCourses = new TreeMap<Float, Course>();
+		mapCourses = new TreeMap<Float, ArrayList<Course>>();
 		
 		try {
 			urlTimeTableDB = new URL(url);
@@ -89,8 +90,6 @@ public class ADEHandler implements Serializable{
 	/**
 	 * Enables the loading of a calendar from an URL
 	 * @author Xavier Bouchenard
-	 * @exception IOException e		An exception of this type will be throwed if a connection's attempt failed
-	 * @exception ParserException e		An exception of this type will be throwed if a building's attempt failed
 	 */
 	private void loadCalendarFromURL() {
 		try {
@@ -106,6 +105,7 @@ public class ADEHandler implements Serializable{
 			InputStream in = conn.getInputStream();
 			try {
 				ADEcal = Calbuilder.build(in);
+				System.out.println("The loading of the calendar succeed\n");
 			} catch (ParserException e) {
 				e.printStackTrace();
 				System.out.println("Error occured while building a new calendar from this url: " 
@@ -114,10 +114,8 @@ public class ADEHandler implements Serializable{
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("The system failed to open a connection from this url " 
-			+ urlTimeTableDB.toString());
+			+ urlTimeTableDB.toString() + "\nMaybe there's no connection available");
 		}
-		
-		System.out.println("The loading of the calendar succeed\n");
 	}
 	
 	/**
@@ -125,7 +123,7 @@ public class ADEHandler implements Serializable{
 	 * @author 	Xavier Bouchenard
 	 * @return	Daily timetable built
 	 */
-	public TreeMap<Float, Course> GetDailyTimetable() {
+	public TreeMap<Float, ArrayList<Course>> getDailyTimetable() {
 		return mapCourses;
 	}
 	
@@ -134,37 +132,62 @@ public class ADEHandler implements Serializable{
 	 * @author Xavier Bouchenard
 	 */
 	public void GenerateTimeTableOfDay() {
-		//	Date of the first build of this timetable
-		LocalDateTime date = LocalDateTime.now();
-		//	Contains the elements needed to identify the current day in the ADE file
-		String dateTime = "";
+		String dateTime = getDay();
+		mapCourses = BuildTimeTable(dateTime);
+	}
+	
+	/**
+	 * Sets an update of the timetable if the courses of the new treemap generated and the old treemap are different
+	 * @author Xavier Bouchenard
+	 */
+	public void UpdateTimeTable() {
+		String dateTime = getDay();
+		TreeMap<Float, ArrayList<Course>> mapTemp = null;
 		
+		mapTemp = BuildTimeTable(dateTime);
+		if (mapCourses.hashCode() != mapTemp.hashCode()) {
+			mapCourses.clear();
+			mapCourses = mapTemp;
+		}
+	}
+	
+	/**
+	 * Builds the timetable for the current day 
+	 * 		=> Can be used for an update or for the first generation of the timetable of the day
+	 * @author Xavier Bouchenard
+	 * @param dateTime	Formatted string which contains the info of the day, month, year
+	 * @return	A TreeMap object in which the courses are sorted according to a starting time
+	 */
+	private TreeMap<Float, ArrayList<Course>> BuildTimeTable(String dateTime) {
 		String professor;
 		String ClassroomName;
-		dateTime +=  date.getYear();
+		TreeMap<Float, ArrayList<Course>> map = new TreeMap<Float, ArrayList<Course>>();
+		ArrayList<Course> lCourse = null;
 		
-		if (date.getMonthValue() < 10)	dateTime +=  "0";
-		
-		dateTime += date.getMonthValue();
-		
-		if (date.getDayOfMonth() < 10)	dateTime += "0";
-		
-		dateTime += date.getDayOfMonth();	
-		
-		//	for all instances of courses in the ADE file, do ...
-		for (Object o : ADEcal.getComponents("VEVENT")) {
-			Component c = (Component)o;
-			// If the current instance of course is a course planned for the day
-			if (c.getProperty("DTSTART").getValue().substring(0, dateTime.length()).contains(dateTime)) {
-				professor = FindProfessor(c);
-				
-				float TimeArray[] = SetTimes(c);
-				ClassroomName = FindClassName(c);
-				
-				Course course = new Course(ClassroomName, professor, TimeArray[0], TimeArray[1]);
-				mapCourses.put(TimeArray[0], course);
-			}			
-		}
+		// for all instances of courses in the ADE file, do ...
+			for (Object o : ADEcal.getComponents("VEVENT")) {
+				Component c = (Component)o;
+				// If the current instance of course is a course planned for the day
+				if (c.getProperty("DTSTART").getValue().substring(0, dateTime.length()).contains(dateTime)) {
+					professor = FindProfessor(c);
+					
+					float TimeArray[] = SetTimes(c);
+					ClassroomName = FindClassName(c);
+					
+					Course course = new Course(ClassroomName, professor, TimeArray[0], TimeArray[1]);
+					
+					if (!map.containsKey(TimeArray[0])) {
+						lCourse = new ArrayList<Course>();
+						lCourse.add(course);
+						map.put(TimeArray[0], lCourse);
+					}
+					else {
+						lCourse = map.get(TimeArray[0]);
+						lCourse.add(course);
+					}
+				}			
+			}
+			return map;
 	}
 	
 	/**
@@ -172,7 +195,7 @@ public class ADEHandler implements Serializable{
 	 * 		defined by the "SUMMARY" tag in the ADE file
 	 * @author Xavier Bouchenard
 	 * @param C		Component which is an instance of course read in the ADE file
-	 * @return		String which is the name of the professor for this course
+	 * @return		String which contains the name of the professor for this course
 	 */
 	private String FindProfessor(Component C) {
 		//	If the kind of course does not have an assigned professor ...
@@ -222,5 +245,27 @@ public class ADEHandler implements Serializable{
 		array[1] = (float) (array[1]+2.0);
 		
 		return array;
+	}
+	
+	/**
+	 * Creates a string composed of the information of the current day, month, year
+	 * @author Xavier Bouchenard 
+	 * @return dateTime		The formatted string
+	 */
+	private String getDay() {
+		//	Date of the first build of this timetable
+		LocalDateTime date = LocalDateTime.now();
+		//	Contains the elements needed to identify the current day in the ADE file
+		String dateTime = "";
+		
+		dateTime +=  date.getYear();		
+		if (date.getMonthValue() < 10)	dateTime +=  "0";
+		
+		dateTime += date.getMonthValue();		
+		if (date.getDayOfMonth() < 10)	dateTime += "0";
+		
+		dateTime += date.getDayOfMonth();
+		
+		return dateTime;
 	}
 }
