@@ -67,20 +67,6 @@ public final class ApplicationHandler implements Serializable{
 	}
 	
 	/**
-	 * Returns an ADEHandler object related to a department name passed in parameter
-	 * @author Xavier Bouchenard
-	 * @param dptName	Name of the department
-	 * @return			ADEHandler object associated with the department name
-	 */
-	@SuppressWarnings("unlikely-arg-type")
-	public ADEHandler GetDailyTimeTable(int dptName) {
-		if (mapADEH.containsKey(dptName)) {
-			return mapADEH.get(dptName);
-		}
-		else return null;
-	}
-	
-	/**
 	 * Gets the flag value to stop the thread related to the TimeHandler class
 	 * @author Xavier Bouchenard
 	 * @param value		The new value
