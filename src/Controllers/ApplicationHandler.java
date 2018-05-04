@@ -140,7 +140,7 @@ public final class ApplicationHandler implements Serializable{
 		
 		for (Entry<String, ADEHandler> ade : mapADEH.entrySet()) {
 			TreeMap<Float, ArrayList<Course>> map = ade.getValue().getDailyTimetable();
-			socket.sendData(map);
+			socket.sendData(ade.getKey(), map);
 		}
 		socket.closeSocketConnection();
 	}

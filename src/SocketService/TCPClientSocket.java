@@ -52,9 +52,11 @@ public class TCPClientSocket{
 	 * @author Xavier Bouchenard
 	 * @param lCourse	List of coursese
 	 */
-	public void sendData(TreeMap<Float, ArrayList<Course>> lCourse) {		
+	public void sendData(String dptName, TreeMap<Float, ArrayList<Course>> lCourse) {		
 		try {
 			ObjectOutputStream obj = new ObjectOutputStream(socket.getOutputStream());
+			obj.writeObject(dptName);
+			obj.flush();
 			obj.writeObject(lCourse);
 			obj.flush();
 		} catch (IOException e) {
