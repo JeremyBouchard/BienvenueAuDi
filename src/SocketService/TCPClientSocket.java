@@ -26,6 +26,8 @@ public class TCPClientSocket{
 	/**
 	 * Constructor of the class, it has nothing to do 
 	 * 		the IP Address and communication port are fixed before the launch of the application
+	 * @param IPAddress		IP address of the TCP server with the one to connect
+	 * @param port			Input port of the connection
 	 */
 	public TCPClientSocket(String IPAddress, int port) {
 		this.IPAddress = IPAddress;
@@ -50,7 +52,8 @@ public class TCPClientSocket{
 	/** 
 	 * Sends a list of courses of the current day to store to the main to the server application
 	 * @author Xavier Bouchenard
-	 * @param lCourse	List of coursese
+	 * @param lCourse	List of courses
+	 * @param dptName	Name of the timetable database
 	 */
 	public void sendData(String dptName, TreeMap<Float, ArrayList<Course>> lCourse) {		
 		try {

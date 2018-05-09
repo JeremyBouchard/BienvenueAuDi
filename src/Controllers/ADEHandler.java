@@ -88,6 +88,15 @@ public class ADEHandler implements Serializable{
 	}
 	
 	/**
+	 * Returns the name of the timetable database (name of the department)
+	 * @author Xavier Bouchenard
+	 * @return	The name of the timetable database (name of the department)
+	 */
+	public String getdptName() {
+		return dptName;
+	}
+	
+	/**
 	 * Enables the loading of a calendar from an URL
 	 * @author Xavier Bouchenard
 	 */

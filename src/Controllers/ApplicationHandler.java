@@ -62,6 +62,8 @@ public final class ApplicationHandler implements Serializable{
 		if (!mapADEH.containsKey(dptName)) {
 			ADEHandler ade = new ADEHandler(dptName, urlTimeTB);
 			ade.GenerateTimeTableOfDay();
+			SendTCPCoursesList(ade);
+			mapADEH.put(dptName, ade);			
 		}
 		else System.out.println("This timetable database already exists");		
 	}
@@ -97,7 +99,7 @@ public final class ApplicationHandler implements Serializable{
 	/**
 	 * Gets all the available keys of the HashMaps
 	 * @author Xavier Bouchenard
-	 * @return Set<String>		All the available keys of the HashMap
+	 * @return	All the available keys of the HashMap
 	 */
 	public Set<String> getKeysOfHashMap() {
 		return mapADEH.keySet();
@@ -142,6 +144,20 @@ public final class ApplicationHandler implements Serializable{
 			TreeMap<Float, ArrayList<Course>> map = ade.getValue().getDailyTimetable();
 			socket.sendData(ade.getKey(), map);
 		}
+		socket.closeSocketConnection();
+	}
+	
+	/**
+	 * Sends a courses list for a specific department
+	 * @author Xavier Bouchenard
+	 * @param ade	Courses list of this object to send
+	 */
+	private void SendTCPCoursesList(ADEHandler ade) {
+		socket.OpenSocketConnection();
+		
+		TreeMap<Float, ArrayList<Course>> list = null;
+		list = ade.getDailyTimetable();
+		socket.sendData(ade.getdptName(), list);
 		socket.closeSocketConnection();
 	}
 }
