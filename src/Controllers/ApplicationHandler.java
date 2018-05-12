@@ -21,13 +21,12 @@ public final class ApplicationHandler implements Serializable{
 	/**
 	 * Object of the class TCPClientSocket initialized at null
 	 */
-	@SuppressWarnings("unused")
 	private static TCPClientSocket socket = null;
 	
 	/**
 	 * Stores the daily timetable for each department added by the user
 	 */
-	private static HashMap<String, ADEHandler> mapADEH;
+	private static HashMap<String, ADEHandler> mapADEH = null;
 	
 	/**
 	 * Important to stop the TimeHandler thread
@@ -40,7 +39,7 @@ public final class ApplicationHandler implements Serializable{
 	public ApplicationHandler() {
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Please enter the IP address of the machine the main application is running");
+		System.out.println("Please enter the IP address of the machine on which the main application is running");
 		
 		String IPAddress = sc.nextLine();
 		System.out.println("Please enter the connection port now");
@@ -49,7 +48,10 @@ public final class ApplicationHandler implements Serializable{
 		socket = new TCPClientSocket(IPAddress, port);
 		mapADEH = new HashMap<String, ADEHandler>();
 
-		new Thread(new TimeHandler()).start();
+		//new Thread(new TimeHandler()).start();
+		if (mapADEH.size() > 0) {
+			SendTCPCourses();
+		}
 	}
 	
 	/**
@@ -62,8 +64,9 @@ public final class ApplicationHandler implements Serializable{
 		if (!mapADEH.containsKey(dptName)) {
 			ADEHandler ade = new ADEHandler(dptName, urlTimeTB);
 			ade.GenerateTimeTableOfDay();
+			mapADEH.put(dptName, ade);	
 			SendTCPCoursesList(ade);
-			mapADEH.put(dptName, ade);			
+					
 		}
 		else System.out.println("This timetable database already exists");		
 	}
@@ -138,13 +141,16 @@ public final class ApplicationHandler implements Serializable{
 	 * @author Xavier Bouchenard
 	 */
 	public static void SendTCPCourses() {
-		socket.OpenSocketConnection();
+		if (mapADEH.size() > 0) {
+			socket.OpenSocketConnection();
 		
-		for (Entry<String, ADEHandler> ade : mapADEH.entrySet()) {
-			TreeMap<Float, ArrayList<Course>> map = ade.getValue().getDailyTimetable();
-			socket.sendData(ade.getKey(), map);
+			for (Entry<String, ADEHandler> ade : mapADEH.entrySet()) {
+				TreeMap<Float, ArrayList<Course>> map = ade.getValue().getDailyTimetable();
+				socket.sendData(ade.getKey(), map);
+			}
+			socket.closeSocketConnection();
 		}
-		socket.closeSocketConnection();
+		else System.out.println("No database is stored");
 	}
 	
 	/**
@@ -159,5 +165,14 @@ public final class ApplicationHandler implements Serializable{
 		list = ade.getDailyTimetable();
 		socket.sendData(ade.getdptName(), list);
 		socket.closeSocketConnection();
+	}
+	
+	/**
+	 * Returns the size of the current HashMap
+	 * @author Xavier Bouchenard
+	 * @return	the HashMap size
+	 */
+	public static int getMapSize() {
+		return mapADEH.size();
 	}
 }

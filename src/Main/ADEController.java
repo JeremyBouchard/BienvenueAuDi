@@ -170,12 +170,13 @@ public class ADEController {
 			while (it.hasNext()) {
 				System.out.println("\t- " + it.next());
 			}
-			
+			sc.nextLine();
+			System.out.println("Which one do you want to remove ?");
 			String dbName = sc.nextLine();
 			appli.RemoveTimetableDB(dbName);
 			
 			setS = appli.getKeysOfHashMap();
-			if (setS.size() == 0)	System.out.println("No timetable DB stored");
+			if (setS.size() == 0)	System.out.println("No timetable DB left after the removal");
 			else {
 				it = setS.iterator();
 				System.out.println("After the remove, there are the last timetables stored");

@@ -196,6 +196,7 @@ public class ADEHandler implements Serializable{
 					}
 				}			
 			}
+			System.out.println("The calendar has been generated");
 			return map;
 	}
 	

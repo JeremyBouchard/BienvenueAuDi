@@ -44,21 +44,24 @@ public class Serialization {
 	 * @author Xavier Bouchenard
 	 * @param obj	ApplicationHandler object to serialize
 	 */
+	@SuppressWarnings("static-access")
 	public void writeData(ApplicationHandler obj) {
-		try {
-			oos.writeObject(obj);
-			oos.flush();
-		} catch (IOException e) {
-			System.out.println("Unable to write the content of the ApplicationHandler object");
-		} finally {
-			if (oos != null) {
-				try {
-					oos.flush();
-					oos.close();
-				} catch (IOException e) {
-					System.out.println("Unable to close the output stream");
+		if (obj.getMapSize() > 0) {
+			try {
+				oos.writeObject(obj);
+				oos.flush();
+			} catch (IOException e) {
+				System.out.println("Unable to write the content of the ApplicationHandler object");
+			} finally {
+				if (oos != null) {
+					try {
+						oos.flush();
+						oos.close();
+					} catch (IOException e) {
+						System.out.println("Unable to close the output stream");
+					}
 				}
 			}
-		}
+		}	
 	}
 }

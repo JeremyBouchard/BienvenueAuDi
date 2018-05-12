@@ -21,19 +21,15 @@ public class TimeHandler implements Runnable{
 	 */
 	@Override
 	public void run() {
-		boolean value = true;
-		
-		// Updates the timetables databases and sends them after (first send)
-		ApplicationHandler.UpdateTimeTable();
-		ApplicationHandler.SendTCPCourses();
+		boolean value = true;	
 		
 		while (value) {			
-			if (DurationTimeElapsed()) {
+			if (DurationTimeElapsed() && (ApplicationHandler.getMapSize() > 0)) {
 				date = LocalDateTime.now();
 				ApplicationHandler.UpdateTimeTable();
 				ApplicationHandler.SendTCPCourses();
 			}
-			else if (IsANewDay()) {
+			else if (IsANewDay() && (ApplicationHandler.getMapSize() > 0)) {
 				date = LocalDateTime.now();
 				ApplicationHandler.UpdateTimeTable();
 				ApplicationHandler.SendTCPCourses();

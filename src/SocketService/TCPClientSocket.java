@@ -2,6 +2,7 @@ package SocketService;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -9,7 +10,11 @@ import java.util.TreeMap;
 
 import Model.Course;
 
-public class TCPClientSocket{
+public class TCPClientSocket implements Serializable{
+	/**
+	 * Serial number for serialization
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Contains the IP address of the socket server handled by the main application
 	 */
@@ -45,7 +50,7 @@ public class TCPClientSocket{
 		} catch (UnknownHostException e) {
 			System.out.println("The host machine has not been found.");
 		} catch (IOException e) {
-			System.out.println("An erroc occured during the creation of the socket object");
+			System.out.println("Error: the server is not working yet or the information given are wrong");
 		}
 	}
 	
@@ -62,8 +67,26 @@ public class TCPClientSocket{
 			obj.flush();
 			obj.writeObject(lCourse);
 			obj.flush();
+			obj.close();
 		} catch (IOException e) {
 			System.out.println("Failed to give information of the courses to the server.");
+		}
+	}
+	
+	/**
+	 * Sends the size of the map to the socket server
+	 * @author Xavier Bouchenard
+	 * @param mapSize	Size of the map
+	 */
+	public void SendMapSize(int mapSize) {
+		ObjectOutputStream obj;
+		try {
+			obj = new ObjectOutputStream(socket.getOutputStream());
+			obj.writeInt(mapSize);
+			obj.flush();
+			obj.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
