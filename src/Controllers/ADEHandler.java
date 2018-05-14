@@ -149,7 +149,7 @@ public class ADEHandler implements Serializable{
 	 * Sets an update of the timetable if the courses of the new treemap generated and the old treemap are different
 	 * @author Xavier Bouchenard
 	 */
-	public void UpdateTimeTable() {
+	public boolean UpdateTimeTable() {
 		String dateTime = getDay();
 		TreeMap<Float, ArrayList<Course>> mapTemp = null;
 		
@@ -157,7 +157,28 @@ public class ADEHandler implements Serializable{
 		if (mapCourses.hashCode() != mapTemp.hashCode()) {
 			mapCourses.clear();
 			mapCourses = mapTemp;
+			return true;
 		}
+		else return false;
+	}
+	
+	public void UpdateURL(String URL) {
+		mapCourses.clear();
+		
+		try {
+			urlTimeTableDB = new URL(URL);
+			System.out.println("Calendar building in progress");
+		}catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			Calbuilder = new CalendarBuilder();
+		}catch (Exception e) {
+			System.out.println("The build of the calendar failed");			
+		}
+		
+		loadCalendarFromURL();
 	}
 	
 	/**
@@ -247,12 +268,18 @@ public class ADEHandler implements Serializable{
 		//	Gets the time from the line which is beginning by the "DTEND" tag at a specific position	
 		int end = Integer.parseInt(C.getProperty("DTEND").getValue().substring(9, 13));
 		
-		float array[] = null;
+		float array[] = {0.0f, 0.0f};
 		
-		array[0] = (float) begin/100;
-		array[0] = (float) (array[0] + 2.0);
-		array[1] = (float) end/100;
-		array[1] = (float) (array[1]+2.0);
+		float minutes = 0.0f;
+		
+		array[0] = begin/100;
+		minutes = begin%100;
+		array[0] += minutes/100 + 2;
+		
+		
+		array[1] = end/100;
+		minutes = end%100;
+		array[1] += minutes/100 + 2;
 		
 		return array;
 	}

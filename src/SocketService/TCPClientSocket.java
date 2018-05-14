@@ -54,6 +54,17 @@ public class TCPClientSocket implements Serializable{
 		}
 	}
 	
+	public void SendDataSize(int size) {
+		try {
+			ObjectOutputStream obj = new ObjectOutputStream(socket.getOutputStream());
+			obj.writeInt(size);
+			obj.flush();
+			obj.close();
+		} catch(IOException e) {
+			System.out.println("Problem to send the data size to the server");
+		}
+	}
+	
 	/** 
 	 * Sends a list of courses of the current day to store to the main to the server application
 	 * @author Xavier Bouchenard

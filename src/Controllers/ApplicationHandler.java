@@ -64,9 +64,9 @@ public final class ApplicationHandler implements Serializable{
 		if (!mapADEH.containsKey(dptName)) {
 			ADEHandler ade = new ADEHandler(dptName, urlTimeTB);
 			ade.GenerateTimeTableOfDay();
-			mapADEH.put(dptName, ade);	
-			SendTCPCoursesList(ade);
-					
+			mapADEH.put(dptName, ade);
+			SendDataSize(1);
+			SendTCPCoursesList(ade);					
 		}
 		else System.out.println("This timetable database already exists");		
 	}
@@ -95,7 +95,10 @@ public final class ApplicationHandler implements Serializable{
 	 */
 	public static void UpdateTimeTable() {
 		for (Entry<String, ADEHandler> mapEntry : mapADEH.entrySet()) {
-			mapEntry.getValue().UpdateTimeTable();
+			if (mapEntry.getValue().UpdateTimeTable()) {
+				SendDataSize(1);
+				SendTCPCoursesList(mapEntry.getValue());
+			}
 		}
 	}
 	
@@ -115,14 +118,14 @@ public final class ApplicationHandler implements Serializable{
 	 * @param newURL	New URL to get the ADE file
 	 */
 	public void UpdateURL(String dbName, String newURL) {
-		mapADEH.remove(dbName);
+		ADEHandler ade = null;
 		
-		ADEHandler ade = new ADEHandler(dbName, newURL);
+		ade = mapADEH.get(dbName);
+		
+		ade.UpdateURL(newURL);
 		ade.GenerateTimeTableOfDay();
-		
-		if (!mapADEH.containsKey(dbName)) {
-			mapADEH.put(dbName, ade);
-		}
+		SendDataSize(1);
+		SendTCPCoursesList(ade);
 	}
 	
 	/**
@@ -134,6 +137,7 @@ public final class ApplicationHandler implements Serializable{
 		if (mapADEH.containsKey(dbName)) {
 			mapADEH.remove(dbName);
 		}
+		else	System.out.println("No existing timetable has this name");
 	}
 	
 	/**
@@ -143,7 +147,9 @@ public final class ApplicationHandler implements Serializable{
 	public static void SendTCPCourses() {
 		if (mapADEH.size() > 0) {
 			socket.OpenSocketConnection();
-		
+			
+			SendDataSize(mapADEH.size());
+			
 			for (Entry<String, ADEHandler> ade : mapADEH.entrySet()) {
 				TreeMap<Float, ArrayList<Course>> map = ade.getValue().getDailyTimetable();
 				socket.sendData(ade.getKey(), map);
@@ -158,12 +164,18 @@ public final class ApplicationHandler implements Serializable{
 	 * @author Xavier Bouchenard
 	 * @param ade	Courses list of this object to send
 	 */
-	private void SendTCPCoursesList(ADEHandler ade) {
+	private static void SendTCPCoursesList(ADEHandler ade) {
 		socket.OpenSocketConnection();
 		
 		TreeMap<Float, ArrayList<Course>> list = null;
 		list = ade.getDailyTimetable();
 		socket.sendData(ade.getdptName(), list);
+		socket.closeSocketConnection();
+	}
+	
+	private static void SendDataSize(int size) {
+		socket.OpenSocketConnection();
+		socket.SendDataSize(size);
 		socket.closeSocketConnection();
 	}
 	

@@ -6,7 +6,5 @@ public class Main {
 		ADEController ade = new ADEController();
 				
 		ade.launch();
-
-		
 	}
 }

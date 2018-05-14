@@ -33,7 +33,7 @@ public class Deserialization {
 				System.out.println("Unable to open an input stream for the deserialization");
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println("Unable to open the serialization file");
+			System.out.println("This file does not exist");
 		}
 	}
 	

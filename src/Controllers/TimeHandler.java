@@ -1,8 +1,13 @@
 package Controllers;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class TimeHandler implements Runnable{
+public class TimeHandler implements Runnable, Serializable{
+	/**
+	 * Default value to serialize this class
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Reference of the current time
 	 */
