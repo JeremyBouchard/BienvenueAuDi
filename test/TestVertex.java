@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import lire.ReadCSVVertex;
+import read.ReadCSVVertex;
 
 /** Unit testing for the class 'ReadCSVVertex'.
  * @author GAUCHER_François, LI_Yuanyuan.

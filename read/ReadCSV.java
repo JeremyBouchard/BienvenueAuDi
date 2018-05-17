@@ -1,4 +1,4 @@
-package lire;
+package read;
 
 
 /** The abstract class for reading the file '.csv'. 

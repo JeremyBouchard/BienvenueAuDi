@@ -1,4 +1,4 @@
-package lire;
+package read;
 
 public class Main 
 {

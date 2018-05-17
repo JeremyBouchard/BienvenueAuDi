@@ -3,7 +3,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import lire.ReadCSVDirection; 
+import read.ReadCSVDirection; 
 
 /** Unit testing for the class 'ReadCSVDirection'.
  * @author GAUCHER_François, LI_Yuanyuan.

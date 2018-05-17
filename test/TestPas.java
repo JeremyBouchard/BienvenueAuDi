@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import lire.ReadCSVPas;
+import read.ReadCSVPas;
 
 /** Unit testing for the class 'ReadCSVPas'.
  * @author GAUCHER_François, LI_Yuanyuan.
