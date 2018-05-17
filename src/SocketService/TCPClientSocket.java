@@ -42,26 +42,28 @@ public class TCPClientSocket implements Serializable{
 	/**
 	 * Opens a socket connection with the socket server
 	 * @author Xavier Bouchenard
+	 * @throws IOException 
 	 */
-	public void OpenSocketConnection() {
+	public void OpenSocketConnection() throws IOException {
 		try {
 			socket = new Socket(IPAddress, conPort);
 			System.out.println("The socket connection succeed");
 		} catch (UnknownHostException e) {
-			System.out.println("The host machine has not been found.");
+			throw new UnknownHostException("The host machine has not been found.");
 		} catch (IOException e) {
-			System.out.println("Error: the server is not working yet or the information given are wrong");
+			throw new IOException("Error: the server is not working yet or the information given are wrong");
 		}
 	}
 	
-	public void SendDataSize(int size) {
+	public void SendDataSize(int size) throws IOException {
 		try {
 			ObjectOutputStream obj = new ObjectOutputStream(socket.getOutputStream());
 			obj.writeInt(size);
 			obj.flush();
 			obj.close();
+			System.out.println("The size of the data to send has been sent to the server");
 		} catch(IOException e) {
-			System.out.println("Problem to send the data size to the server");
+			throw new IOException("A problem occured while sending the data size to the server");
 		}
 	}
 	
@@ -70,8 +72,9 @@ public class TCPClientSocket implements Serializable{
 	 * @author Xavier Bouchenard
 	 * @param lCourse	List of courses
 	 * @param dptName	Name of the timetable database
+	 * @throws IOException 
 	 */
-	public void sendData(String dptName, TreeMap<Float, ArrayList<Course>> lCourse) {		
+	public void sendData(String dptName, TreeMap<Float, ArrayList<Course>> lCourse) throws IOException {		
 		try {
 			ObjectOutputStream obj = new ObjectOutputStream(socket.getOutputStream());
 			obj.writeObject(dptName);
@@ -79,8 +82,9 @@ public class TCPClientSocket implements Serializable{
 			obj.writeObject(lCourse);
 			obj.flush();
 			obj.close();
+			System.out.println("The data has been sent to the server");
 		} catch (IOException e) {
-			System.out.println("Failed to give information of the courses to the server.");
+			throw new IOException("Failed to give information of the courses to the server.");
 		}
 	}
 	
@@ -88,8 +92,9 @@ public class TCPClientSocket implements Serializable{
 	 * Sends the size of the map to the socket server
 	 * @author Xavier Bouchenard
 	 * @param mapSize	Size of the map
+	 * @throws IOException 
 	 */
-	public void SendMapSize(int mapSize) {
+	public void SendMapSize(int mapSize) throws IOException {
 		ObjectOutputStream obj;
 		try {
 			obj = new ObjectOutputStream(socket.getOutputStream());
@@ -97,19 +102,20 @@ public class TCPClientSocket implements Serializable{
 			obj.flush();
 			obj.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new IOException("Error: a problem occured while sending the data size");
 		}
 	}
 
 	/**
 	 * Closes the socket connection
 	 * @author Xavier Bouchenard
+	 * @throws IOException 
 	 */
-	public void closeSocketConnection() {
+	public void closeSocketConnection() throws IOException {
 		try {
 			socket.close();
 		} catch (IOException e) {
-			System.out.println("Failed to close the socket connection with the server.");
+			throw new IOException("Failed to close the socket connection with the server.");
 		}
 		socket = null;
 	}

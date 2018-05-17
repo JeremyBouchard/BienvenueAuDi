@@ -4,6 +4,7 @@ import SocketService.TCPClientSocket;
 import Controllers.ADEHandler;
 import Model.Course;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,13 +63,21 @@ public final class ApplicationHandler implements Serializable{
 	 */
 	public void AddNewTimeTblDB(String dptName, String urlTimeTB) {
 		if (!mapADEH.containsKey(dptName)) {
-			ADEHandler ade = new ADEHandler(dptName, urlTimeTB);
-			ade.GenerateTimeTableOfDay();
-			mapADEH.put(dptName, ade);
-			SendDataSize(1);
-			SendTCPCoursesList(ade);					
+			ADEHandler ade = null;
+			try {
+				ade = new ADEHandler(dptName, urlTimeTB);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			if (ade != null) {
+				ade.GenerateTimeTableOfDay();
+				mapADEH.put(dptName, ade);
+				SendDataSize(1);
+				SendTCPCoursesList(ade);		
+			}
+			else System.out.println("Failed to add a new timetable database\n");
 		}
-		else System.out.println("This timetable database already exists");		
+		else System.out.println("This timetable database already exists\n");		
 	}
 	
 	/**
@@ -122,10 +131,15 @@ public final class ApplicationHandler implements Serializable{
 		
 		ade = mapADEH.get(dbName);
 		
-		ade.UpdateURL(newURL);
-		ade.GenerateTimeTableOfDay();
-		SendDataSize(1);
-		SendTCPCoursesList(ade);
+		try {
+			ade.UpdateURL(newURL);
+			ade.GenerateTimeTableOfDay();
+			SendDataSize(1);
+			SendTCPCoursesList(ade);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
 	
 	/**
@@ -146,15 +160,20 @@ public final class ApplicationHandler implements Serializable{
 	 */
 	public static void SendTCPCourses() {
 		if (mapADEH.size() > 0) {
-			socket.OpenSocketConnection();
-			
-			SendDataSize(mapADEH.size());
-			
-			for (Entry<String, ADEHandler> ade : mapADEH.entrySet()) {
-				TreeMap<Float, ArrayList<Course>> map = ade.getValue().getDailyTimetable();
-				socket.sendData(ade.getKey(), map);
-			}
-			socket.closeSocketConnection();
+			try {
+				socket.OpenSocketConnection();
+				SendDataSize(mapADEH.size());				
+				
+				for (Entry<String, ADEHandler> ade : mapADEH.entrySet()) {
+					TreeMap<Float, ArrayList<Course>> map = ade.getValue().getDailyTimetable();
+					socket.sendData(ade.getKey(), map);
+				}	
+
+				socket.closeSocketConnection();
+				
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}			
 		}
 		else System.out.println("No database is stored");
 	}
@@ -165,18 +184,27 @@ public final class ApplicationHandler implements Serializable{
 	 * @param ade	Courses list of this object to send
 	 */
 	private static void SendTCPCoursesList(ADEHandler ade) {
-		socket.OpenSocketConnection();
-		
 		TreeMap<Float, ArrayList<Course>> list = null;
-		list = ade.getDailyTimetable();
-		socket.sendData(ade.getdptName(), list);
-		socket.closeSocketConnection();
+		
+		try {
+			socket.OpenSocketConnection();
+			list = ade.getDailyTimetable();
+			socket.sendData(ade.getdptName(), list);
+			socket.closeSocketConnection();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
 	
 	private static void SendDataSize(int size) {
-		socket.OpenSocketConnection();
-		socket.SendDataSize(size);
-		socket.closeSocketConnection();
+		try {
+			socket.OpenSocketConnection();
+			socket.SendDataSize(size);
+			socket.closeSocketConnection();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	/**

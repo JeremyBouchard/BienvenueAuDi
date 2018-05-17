@@ -5,14 +5,12 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 import Model.Course;
 import net.fortuna.ical4j.data.CalendarBuilder;
-import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.Component;
 
@@ -32,18 +30,12 @@ public class ADEHandler implements Serializable{
 	/**
 	 * Name of the department written by the user
 	 */
-	@SuppressWarnings("unused")
 	private String dptName = null;
 	
 	/**
 	 * URL generated thanks to a String which contains the URL of the ADE file from ENT
 	 */
 	private URL urlTimeTableDB = null;
-	
-	/**
-	 * Stores the data of the url connection
-	 */
-	private URLConnection conn = null;	
 	
 	/**
 	 * Calendar generated on which the courses of the day to get
@@ -65,8 +57,9 @@ public class ADEHandler implements Serializable{
 	 * @author Xavier Bouchenard
 	 * @param dptName	Name of the department written by the user
 	 * @param url		URL of the timetable to get
+	 * @throws Exception Exception to catch
 	 */
-	public ADEHandler(String dptName, String url) {
+	public ADEHandler(String dptName, String url) throws Exception {
 		this.dptName = dptName;
 		
 		mapCourses = new TreeMap<Float, ArrayList<Course>>();
@@ -75,16 +68,16 @@ public class ADEHandler implements Serializable{
 			urlTimeTableDB = new URL(url);
 			System.out.println("Calendar building in progress");
 		}catch (MalformedURLException e) {
-			e.printStackTrace();
+			throw new Exception("Unable to open the connection with this URL: " + url);
 		}
 		
 		try {
 			Calbuilder = new CalendarBuilder();
 		}catch (Exception e) {
-			System.out.println("The build of the calendar failed");			
+			throw new Exception("The build of the calendar failed");		
 		}
 		
-		loadCalendarFromURL();
+		if (urlTimeTableDB != null)	loadCalendarFromURL();
 	}
 	
 	/**
@@ -99,32 +92,25 @@ public class ADEHandler implements Serializable{
 	/**
 	 * Enables the loading of a calendar from an URL
 	 * @author Xavier Bouchenard
+	 * @throws Exception exception to catch
 	 */
-	private void loadCalendarFromURL() {
+	private void loadCalendarFromURL() throws Exception {
+		InputStream in = null;
+
 		try {
-			// Sets a connection stream thanks to the url passed in argument of the constructor
-			conn = urlTimeTableDB.openConnection();
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("Connection failed from this url: " + urlTimeTableDB.toString());
-		}
-		
-		try {
-			// Opens the connection stream from the set URLConnection 
-			InputStream in = conn.getInputStream();
-			try {
-				ADEcal = Calbuilder.build(in);
-				System.out.println("The loading of the calendar succeed\n");
-			} catch (ParserException e) {
-				e.printStackTrace();
-				System.out.println("Error occured while building a new calendar from this url: " 
-				+ urlTimeTableDB.toString());
+				in = urlTimeTableDB.openStream();
+			} catch (IOException e) {
+				throw new Exception("Unable to open a connection stream from the set URL. "
+						+ "Maybe the machine is not connected to internet.");
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("The system failed to open a connection from this url " 
-			+ urlTimeTableDB.toString() + "\nMaybe there's no connection available");
-		}
+			if (in != null) {
+				try {
+					ADEcal = Calbuilder.build(in);
+				} catch (IOException e) {
+					throw new Exception("Unable to build a calendar from the declared connection stream.");
+				}
+				System.out.println("The loading of the calendar succeed\n");
+			}		
 	}
 	
 	/**
@@ -162,23 +148,18 @@ public class ADEHandler implements Serializable{
 		else return false;
 	}
 	
-	public void UpdateURL(String URL) {
+	public void UpdateURL(String URL) throws Exception {
 		mapCourses.clear();
+		urlTimeTableDB = null;
 		
 		try {
 			urlTimeTableDB = new URL(URL);
 			System.out.println("Calendar building in progress");
 		}catch (MalformedURLException e) {
-			e.printStackTrace();
+			throw new Exception("Unable to open the connection with this URL:" + URL);
 		}
 		
-		try {
-			Calbuilder = new CalendarBuilder();
-		}catch (Exception e) {
-			System.out.println("The build of the calendar failed");			
-		}
-		
-		loadCalendarFromURL();
+		if (urlTimeTableDB != null)	loadCalendarFromURL();
 	}
 	
 	/**

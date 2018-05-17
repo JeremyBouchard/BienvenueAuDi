@@ -54,7 +54,7 @@ public class ADEController {
 		boolean flag = true;
 		int choice;
 		
-		System.out.println("/*************\tADE Sources Handler Application\t*************/\n\n");
+		System.out.println("/*************\tADE Sources Handler Application\t*************/\n");
 		
 		while (flag) {
 			Actions();

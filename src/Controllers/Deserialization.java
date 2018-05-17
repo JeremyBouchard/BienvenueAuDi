@@ -3,7 +3,9 @@ package Controllers;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
+import java.io.StreamCorruptedException;
 
 /**
  * Deserializes an ApplicationHandler object which was serialized at the end of the program
@@ -45,6 +47,7 @@ public class Deserialization {
 		} catch (ClassNotFoundException e) {
 			System.out.println("The ApplicationHandler class has not been found");
 		} catch (IOException e) {
+			e.printStackTrace();
 			System.out.println("Unable to deserialize this file");
 		} finally {
 			if (ois != null) {
