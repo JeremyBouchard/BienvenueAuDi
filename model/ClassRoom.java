@@ -7,9 +7,6 @@ package model;
  */
 public class ClassRoom extends Room {
 
-	public ClassRoom(int id, String name, Type type) {
-		super(id, name, type, name);
-	}
 	/**
 	 * SerialVersion
 	 */

@@ -13,20 +13,27 @@ public class Vertex  implements Serializable{
 	 * SerialVersion
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private  int id;
+	private String name;
+	private Type type;
+	private int etage;
+
 	
-	
+	/**
+	 * Constructor
+	 * @param id
+	 * @param name
+	 * @param type
+	 * @param etage
+	 */
 	public Vertex(int id, String name, Type type, int etage) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.type = type;
-		this.etage = etage;
+		this.setEtage(etage);
 	}
 
-	private String name;
-	private Type type;
-	private int etage;
 	
 	/**
 	 * Constructor
@@ -46,12 +53,6 @@ public class Vertex  implements Serializable{
 	{
 		id++;
 	}
-	
-	public Vertex(int id, String name, Type type) {
-		this.name=name;
-		this.type=type;
-		
-	}
 
 	/**
 	 * @return the name
@@ -70,7 +71,7 @@ public class Vertex  implements Serializable{
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public  int getId() {
 		return id;
 	}
 
@@ -87,6 +88,22 @@ public class Vertex  implements Serializable{
 	 */
 	public void setType(Type type) {
 		this.type = type;
+	}
+
+
+	/**
+	 * @return the etage
+	 */
+	public int getEtage() {
+		return etage;
+	}
+
+
+	/**
+	 * @param etage the etage to set
+	 */
+	public void setEtage(int etage) {
+		this.etage = etage;
 	}
 	
 	

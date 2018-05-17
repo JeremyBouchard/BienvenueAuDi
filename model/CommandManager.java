@@ -8,6 +8,8 @@ import java.util.Set;
 
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
 
+import lire.ReadCSVDirection;
+
 /**
  * Class implementing methods to communicate with client
  * @author MariamKonate,JeremyBouchard
@@ -77,7 +79,8 @@ public class CommandManager implements Runnable
         //CreateNodList
         List<Node> node=createList(path.PathBetween(graph, firstNode, secondNode));
         //CalculateDirection
-        
+        calculDirection(node);
+        //Send node list
         ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
         oos.writeObject(node);
         oos.flush();
@@ -159,11 +162,44 @@ public class CommandManager implements Runnable
 		List<Node> list=new ArrayList<Node>();
 		for(Information i:listIndo)
 		{
-			Node node= new Node(i,Direction.North);
+			Node node= new Node(i,Direction.None);
 			list.add(node);
 			
 		}
 		return list;
+	}
+	
+	public void calculDirection(List<Node> list)
+	{
+		String path="/Users/MariamKonate/Desktop/ProjetS8/readCSVDirection.csv";
+		ReadCSVDirection readCSV=new ReadCSVDirection();
+		readCSV.setPath(path);
+      	readCSV.convertCSV();
+      	for(int i=0;i<list.size()-1;i++)
+      	{
+      		String direction=readCSV.getDirection(list.get(i).getInformation().getName(), list.get(i+1).getInformation().getName());
+      		if(direction.equals("H"))
+      		{
+      			list.get(i).setDirectionToTake(Direction.North);
+      		}
+      		else if(direction.equals("B"))
+      		{
+      			list.get(i).setDirectionToTake(Direction.South);
+      		}
+      		else if(direction.equals("D"))
+      		{
+      			list.get(i).setDirectionToTake(Direction.West);
+      		}
+      		else if(direction.equals("G"))
+      		{
+      			list.get(i).setDirectionToTake(Direction.East);
+      		}
+      		else
+      		{
+      			list.get(i).setDirectionToTake(Direction.None);
+      		}
+      			
+      	}
 	}
 
 	
