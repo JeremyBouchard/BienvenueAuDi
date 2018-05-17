@@ -2,6 +2,8 @@ package model;
 
 import java.io.Serializable;
 
+import controller.Information;
+
 /**
  * Represents a point of the map
  * Current object : Information, direction to get to the next node

@@ -1,4 +1,4 @@
-package model;
+package controller;
 
 /**
  * Class enabling us to modify Files

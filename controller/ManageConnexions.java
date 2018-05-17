@@ -1,9 +1,12 @@
-package model;
+package controller;
 
 import java.io.*;
 import java.net.*;
 
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
+
+import model.Edge;
+import model.Vertex;
 
 /**
  * Class that opens a server socket on a defined port

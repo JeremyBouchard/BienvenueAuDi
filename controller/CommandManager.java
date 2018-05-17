@@ -1,4 +1,4 @@
-package model;
+package controller;
 
 import java.io.*;
 import java.net.Socket;
@@ -9,6 +9,10 @@ import java.util.Set;
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
 
 import lire.ReadCSVDirection;
+import model.Direction;
+import model.Edge;
+import model.Node;
+import model.Vertex;
 
 /**
  * Class implementing methods to communicate with client

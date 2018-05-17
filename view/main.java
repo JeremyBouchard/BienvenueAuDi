@@ -1,9 +1,12 @@
-package model;
+package view;
 import java.io.IOException;
 
 import org.jgrapht.*;
 import org.jgrapht.graph.*;
 
+import controller.ManageConnexions;
+import model.Edge;
+import model.Type;
 import model.Vertex;
 
 import org.jgrapht.ext.*;

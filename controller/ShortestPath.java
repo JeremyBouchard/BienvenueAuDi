@@ -1,4 +1,4 @@
-package model;
+package controller;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,6 +7,9 @@ import java.util.Set;
 import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
+
+import model.Edge;
+import model.Vertex;
 
 /**
  * Class aiming at implementing 
