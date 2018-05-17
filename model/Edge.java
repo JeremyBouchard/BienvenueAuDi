@@ -1,14 +1,13 @@
 package model;
 
 import org.jgraph.graph.DefaultEdge;
-import org.jgrapht.graph.DefaultWeightedEdge;
 
 /**
  * Class representing our customized Edge
  * @author MariamKonate, JeremyBouchard
  *
  */
-public class Edge extends DefaultWeightedEdge{
+public class Edge extends DefaultEdge{
 
 	/**
 	 * SerialVersion
@@ -33,7 +32,7 @@ public class Edge extends DefaultWeightedEdge{
 	/**
 	 * @return the weight
 	 */
-	public double getWeight() {
+	public int getWeight() {
 		return weight;
 	}
 

@@ -11,11 +11,6 @@ public class Room extends Vertex {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	public Room(int id, String name, Type type, String number) {
-		super(id, name, type);
-		this.number = number;
-	}
 
 	private String number;
 
