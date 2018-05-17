@@ -6,9 +6,16 @@ import org.junit.Test;
 
 import lire.ReadCSVPas;
 
+/** Unit testing for the class 'ReadCSVPas'.
+ * @author GAUCHER_François, LI_Yuanyuan.
+ *
+ */
 public class TestPas {
 	private ReadCSVPas readCSV=new ReadCSVPas();
 
+	/**
+	 * Test the function 'convertCSV'.
+	 */
 	@Test
 	public void testCenvert()
 	{
@@ -19,8 +26,11 @@ public class TestPas {
 		assertEquals(87, readCSV.getListPas().get(0).size());
 	}
 	
+	/**
+	 * Test the function 'getPas'.
+	 */
 	@Test
-	public void testGetDirection()
+	public void testGetPas()
 	{
 		String path="C:\\Users\\tudou\\Desktop\\pas.csv";
 		readCSV.setPath(path);

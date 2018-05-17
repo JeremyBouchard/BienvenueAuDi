@@ -5,9 +5,16 @@ import org.junit.Test;
 
 import lire.ReadCSVDirection; 
 
+/** Unit testing for the class 'ReadCSVDirection'.
+ * @author GAUCHER_François, LI_Yuanyuan.
+ *
+ */
 public class TestDirection {
 	private ReadCSVDirection readCSV=new ReadCSVDirection();
 
+	/**
+	 * Test the function 'convertCSV'.
+	 */
 	@Test
 	public void testCenvert()
 	{
@@ -18,6 +25,9 @@ public class TestDirection {
 		assertEquals(87, readCSV.getListDirection().get(0).size());
 	}
 	
+	/**
+	 * Test the function 'getDirection'.
+	 */
 	@Test
 	public void testGetDirection()
 	{

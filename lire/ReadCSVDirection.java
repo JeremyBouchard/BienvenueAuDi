@@ -9,18 +9,32 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**The class extends the abstract class 'ReadCSV' for reading the file of saving directions between classrooms.
+ * @author GAUCHER_François, LI_Yuanyuan.
+ *
+ */
 public class ReadCSVDirection extends ReadCSV
 {
-//	//le chemin de fichierCSV
-//	private String filePath;	
-	//la "matrice" de directions
+	
+	/**
+	 * the directions matrix.
+	 */
 	private List<List<String>> listDirection=new ArrayList<List<String>>();
+	/**
+	 * the converting directions matrix.
+	 */
 	private List<List<String>> matrixDirection=new ArrayList<List<String>>();
 	
+	/**
+	 * The default constructor.
+	 */
 	public ReadCSVDirection() {
 		this.initializeMatrix();
 	}
 
+	/**
+	 * initialize the converting matrix.
+	 */
 	public void initializeMatrix()
 	{
 		
@@ -36,16 +50,24 @@ public class ReadCSVDirection extends ReadCSV
 		matrixDirection.add(fifth);
 	}
 
+	/**
+	 * @return the directions matrix.
+	 */
 	public List<List<String>> getListDirection() {
 		return listDirection;
 	}
 
+	
+	/**
+	 * @param listDirection the converting directions matrix.
+	 */
 	public void setListDirection(List<List<String>> listDirection) {
 		this.listDirection = listDirection;
 	}
 
-	/**
-	 * convert the fiche CSV to "matrice"
+	
+	/* (non-Javadoc)
+	 * @see lire.ReadCSV#convertCSV()
 	 */
 	@Override
 	public void convertCSV()
@@ -78,9 +100,9 @@ public class ReadCSVDirection extends ReadCSV
 	}
 	
 	/**
-	 * get the direction between 'begin' and 'arrive'
-	 * @param begin  
-	 * @param arrive  
+	 * Get the direction between 'begin' and 'arrive'
+	 * @param begin : the begin location.
+	 * @param arrive : the destination location.
 	 * @return the direction between 'begin' and 'arrive'
 	 */
 	public String getDirection(String begin,String arrive)
@@ -110,6 +132,11 @@ public class ReadCSVDirection extends ReadCSV
 		return direction;
 	}
 	
+	/** Get the converting direction between 'source' and 'destination'.
+	 * @param source : the begin location.
+	 * @param destination : the destination location.
+	 * @return the converting direction between 'source' and 'destination'.
+	 */
 	public String getRealDirection(String source,String destination)
 	{
 		return matrixDirection.get(matrixDirection.indexOf(source)).get(matrixDirection.indexOf(destination));
