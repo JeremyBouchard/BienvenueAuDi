@@ -58,7 +58,7 @@ public class main {
 		
 		//tabVertex[0].getId();
 		//(Room)tabVertex[0]).getNumber();
-		
+		new Thread(new ManageConnexions(g)).start();
 		
 		
 
