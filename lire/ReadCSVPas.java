@@ -9,22 +9,40 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**The class extends the abstract class 'ReadCSV' for reading the file of saving distances between classrooms.
+ * @author GAUCHER_François, LI_Yuanyuan.
+ *
+ */
 public class ReadCSVPas extends ReadCSV
 {
-		//la "matrice" de pas
+		/**
+		 * the matrix of distances.
+		 */
 		private List<List<String>> listPas=new ArrayList<List<String>>();
 
+		/**
+		 * The default constructor.
+		 */
 		public ReadCSVPas() {
 		}
 
+		/**
+		 * @return the matrix of distances.
+		 */
 		public List<List<String>> getListPas() {
 			return listPas;
 		}
 
+		/**
+		 * @param listPas the matrix of distances.
+		 */
 		public void setListPas(List<List<String>> listPas) {
 			this.listPas = listPas;
 		}
 
+		/* (non-Javadoc)
+		 * @see lire.ReadCSV#convertCSV()
+		 */
 		@Override
 		public void convertCSV() 
 		{
@@ -56,6 +74,11 @@ public class ReadCSVPas extends ReadCSV
 				}
 		}
 		
+		/** Get the distance between 'begin' and 'arrive'.
+		 * @param begin : the begin location.
+		 * @param arrive : the destination location.
+		 * @return the distance between 'begin' and 'arrive'.
+		 */
 		public Integer getPas(String begin,String arrive)
 		{
 			String begin2=begin.toLowerCase();
