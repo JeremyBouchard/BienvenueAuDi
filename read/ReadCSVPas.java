@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import model.Edge;
+import model.Vertex;
+
 /**The class extends the abstract class 'ReadCSV' for reading the file of saving distances between classrooms.
  * @author GAUCHER_François, LI_Yuanyuan.
  *
@@ -20,6 +23,12 @@ public class ReadCSVPas extends ReadCSV
 		 */
 		private List<List<String>> listPas=new ArrayList<List<String>>();
 
+		private List<Edge> listEdge =new ArrayList<Edge>();
+		
+		public List<Edge> getListEdge(){
+			return listEdge;
+		}
+		
 		/**
 		 * The default constructor.
 		 */
@@ -58,6 +67,7 @@ public class ReadCSVPas extends ReadCSV
 						{ 
 							List<String> ligne=Arrays.asList(line.split("\\,")) ;
 							listPas.add(ligne);
+							//listEdge.add(new Edge(Integer.parseInt(ligne.get(0))));
 						}
 						if(br!=null)
 			            {

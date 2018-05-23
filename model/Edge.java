@@ -1,47 +1,40 @@
 package model;
 
 import org.jgraph.graph.DefaultEdge;
+import org.jgrapht.graph.DefaultWeightedEdge;
 
 /**
  * Class representing our customized Edge
  * @author MariamKonate, JeremyBouchard
  *
  */
-public class Edge extends DefaultEdge{
+public class Edge extends DefaultWeightedEdge{
 
 	/**
 	 * SerialVersion
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private int weight;
-
 	private Direction direction;
 	
-	private int floor;
+	//private int floor;
 
 	/**
 	 * Constructor
 	 */
 	public Edge()
 	{
-		
+
 	}
 	
+	public Vertex Source() {
+		return (Vertex) getSource();
+	}
 	
-	/**
-	 * @return the weight
-	 */
-	public int getWeight() {
-		return weight;
+	public Vertex Destination() {
+		return (Vertex) getTarget();
 	}
 
-	/**
-	 * @param weight the weight to set
-	 */
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
 
 	/**
 	 * @return the direction
@@ -57,18 +50,18 @@ public class Edge extends DefaultEdge{
 		this.direction = direction;
 	}
 
-	/**
-	 * @return the floor
-	 */
-	public int getFloor() {
-		return floor;
-	}
-
-	/**
-	 * @param floor the floor to set
-	 */
-	public void setFloor(int floor) {
-		this.floor = floor;
-	}
+//	/**
+//	 * @return the floor
+//	 */
+//	public int getFloor() {
+//		return floor;
+//	}
+//
+//	/**
+//	 * @param floor the floor to set
+//	 */
+//	public void setFloor(int floor) {
+//		this.floor = floor;
+//	}
 
 }

@@ -10,7 +10,9 @@ import org.jgrapht.graph.DefaultDirectedWeightedGraph;
 
 import model.Direction;
 import model.Edge;
+import model.Information;
 import model.Node;
+import model.ShortestPath;
 import model.Vertex;
 import read.ReadCSVDirection;
 

@@ -1,9 +1,7 @@
 
-package controller;
+package model;
 
 import java.io.Serializable;
-
-import model.Type;
 
 /**
  *  Information about a certain node

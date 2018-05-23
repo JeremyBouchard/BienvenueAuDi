@@ -4,7 +4,7 @@ public class Main
 {
 	public static void main(String[] args)  
 	{
-	String path="/Users/MariamKonate/Desktop/ProjetS8/readCSVDirection.csv";
+	String path="C:/Users/Jeremy/Google Drive/_Proffesionnel_Drive/WorkspaceEclipse/DiProject/src/readCSVDirection.csv";
 		ReadCSVDirection readCSV=new ReadCSVDirection();
 		readCSV.setPath(path);
       	readCSV.convertCSV();

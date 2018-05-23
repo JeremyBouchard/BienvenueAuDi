@@ -38,7 +38,7 @@ public class ReadCSVDirection extends ReadCSV
 	public void initializeMatrix()
 	{
 		
-		List<String> first = Arrays.asList("","H","B","G","D");
+		List<String> first = Arrays.asList("None","H","B","G","D");
 		List<String> second = Arrays.asList("H","None","H","D","G");
 		List<String> third = Arrays.asList("B","H","None","G","D");
 		List<String> fourth = Arrays.asList("G","G","D","None","H");
