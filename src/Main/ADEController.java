@@ -3,7 +3,6 @@ package Main;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
-
 import Controllers.ApplicationHandler;
 import Controllers.Deserialization;
 import Controllers.Serialization;
@@ -41,9 +40,11 @@ public class ADEController {
 		sc = new Scanner(System.in);
 		deserializer = new Deserialization();
 		serializer = new Serialization();
-		
+			
 		appli = deserializer.toDeserialize();
 		if (appli == null)	appli = new ApplicationHandler();
+		else appli.setAppliStop(false);
+		
 	}
 	
 	/**
@@ -74,6 +75,9 @@ public class ADEController {
 				case 4:  
 					ShowTimetablesNames();
 					break;
+				case 5:
+					ShowParamSocket(appli);
+					break;
 				case 0: 
 					System.out.println("Closing the application ...\n");
 					flag = false;
@@ -98,6 +102,7 @@ public class ADEController {
 		System.out.println("\t2: Change the URL of an existing timetable database");
 		System.out.println("\t3: Remove an existing timetable database");
 		System.out.println("\t4: Show all the existing timetable databases names");
+		System.out.println("\t5: Show socket information");
 		System.out.println("\t0: Close the application\n");
 	}
 	
@@ -212,5 +217,9 @@ public class ADEController {
 	 */
 	private void toSerialize(ApplicationHandler appli) {
 		serializer.writeData(appli);
+	}
+	
+	private void ShowParamSocket(ApplicationHandler appli) {
+		appli.showParamSocket();
 	}
 }

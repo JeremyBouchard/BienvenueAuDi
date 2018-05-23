@@ -3,9 +3,12 @@ package Controllers;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
-import java.io.StreamCorruptedException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.TreeMap;
+
+import Model.Course;
 
 /**
  * Deserializes an ApplicationHandler object which was serialized at the end of the program
@@ -27,6 +30,17 @@ public class Deserialization {
 	 * 	Constructor of the Deserialization class
 	 */
 	public Deserialization() {
+		
+	}
+	
+	@SuppressWarnings({ "finally", "unchecked" })
+	public ApplicationHandler toDeserialize() {
+		ApplicationHandler appli = null;
+		int conPort = 0;
+		String IPAddress = null;
+		HashMap<String, TreeMap<Float, ArrayList<Course>>> map = null;
+		HashMap<String, String> lURL = null;
+		
 		try {
 			file = new FileInputStream("dataSaves.txt");
 			try {
@@ -37,17 +51,21 @@ public class Deserialization {
 		} catch (FileNotFoundException e) {
 			System.out.println("This file does not exist");
 		}
-	}
-	
-	@SuppressWarnings("finally")
-	public ApplicationHandler toDeserialize() {
-		ApplicationHandler appli = null;
+		
 		try {
-			appli = (ApplicationHandler) ois.readObject();
-		} catch (ClassNotFoundException e) {
+			IPAddress = ois.readUTF();
+
+			conPort = ois.readInt();
+
+			map = (HashMap<String, TreeMap<Float, ArrayList<Course>>>) ois.readObject();
+			
+			lURL = (HashMap<String, String>) ois.readObject();
+			
+			appli = new ApplicationHandler(IPAddress, conPort, map, lURL);
+			
+			} catch (ClassNotFoundException e) {
 			System.out.println("The ApplicationHandler class has not been found");
 		} catch (IOException e) {
-			e.printStackTrace();
 			System.out.println("Unable to deserialize this file");
 		} finally {
 			if (ois != null) {

@@ -2,7 +2,6 @@ package Controllers;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -20,49 +19,21 @@ import net.fortuna.ical4j.model.Component;
  * @author Xavier Bouchenard
  *
  */
-public class ADEHandler implements Serializable{	
-	
-	/**
-	 * Value declared for the serialization
-	 */
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Name of the department written by the user
-	 */
-	private String dptName = null;
-	
-	/**
-	 * URL generated thanks to a String which contains the URL of the ADE file from ENT
-	 */
-	private URL urlTimeTableDB = null;
-	
-	/**
-	 * Calendar generated on which the courses of the day to get
-	 */
-	private Calendar ADEcal = null;
-
-	/**
-	 * Type which builds a calendar from an input stream
-	 */
-	private CalendarBuilder Calbuilder;
-	
-	/**
-	 * Stores the courses depending on the starting time
-	 */
-	private TreeMap<Float, ArrayList<Course>> mapCourses = null;
+public class ADEHandler {
+	private static TreeMap<Float, ArrayList<Course>> mapCourses = null;
+	private static URL urlTimeTableDB = null;
+	private static CalendarBuilder Calbuilder = null;
+	private static Calendar ADEcal = null;
 		
 	/**
-	 * Constructor of the class
+	 * Configures the URL which will be used to get the timetable file
 	 * @author Xavier Bouchenard
-	 * @param dptName	Name of the department written by the user
-	 * @param url		URL of the timetable to get
+	 * @param url				URL of the timetable to get
+	 * @param urlTimeTableDB	URL object to build
+	 * @param Calbuilder		Calendar used to build another one
 	 * @throws Exception Exception to catch
 	 */
-	public ADEHandler(String dptName, String url) throws Exception {
-		this.dptName = dptName;
-		
-		mapCourses = new TreeMap<Float, ArrayList<Course>>();
+	private static void ConfigurationURL(String url) throws Exception {
 		
 		try {
 			urlTimeTableDB = new URL(url);
@@ -77,16 +48,6 @@ public class ADEHandler implements Serializable{
 			throw new Exception("The build of the calendar failed");		
 		}
 		
-		if (urlTimeTableDB != null)	loadCalendarFromURL();
-	}
-	
-	/**
-	 * Returns the name of the timetable database (name of the department)
-	 * @author Xavier Bouchenard
-	 * @return	The name of the timetable database (name of the department)
-	 */
-	public String getdptName() {
-		return dptName;
 	}
 	
 	/**
@@ -94,73 +55,45 @@ public class ADEHandler implements Serializable{
 	 * @author Xavier Bouchenard
 	 * @throws Exception exception to catch
 	 */
-	private void loadCalendarFromURL() throws Exception {
+	private static void loadCalendarFromURL() throws Exception {
 		InputStream in = null;
 
 		try {
 				in = urlTimeTableDB.openStream();
 			} catch (IOException e) {
-				throw new Exception("Unable to open a connection stream from the set URL. "
+				throw new IOException("Unable to open a connection stream from the set URL. "
 						+ "Maybe the machine is not connected to internet.");
 			}
 			if (in != null) {
 				try {
 					ADEcal = Calbuilder.build(in);
 				} catch (IOException e) {
-					throw new Exception("Unable to build a calendar from the declared connection stream.");
+					throw new IOException("Unable to build a calendar from the declared connection stream.");
 				}
 				System.out.println("The loading of the calendar succeed\n");
 			}		
 	}
 	
 	/**
-	 * Returns the daily timetable which will be used by the server's application
-	 * @author 	Xavier Bouchenard
-	 * @return	Daily timetable built
+	 * Generates the timetable of courses for the department for the current day
+	 * @author Xavier Bouchenard
+	 * @param url			URL to get the ADE file
+	 * @throws Exception 	Exception throwed when an error occured 
+	 * @return	A TreeMap object in which the courses are sorted according to a starting time
 	 */
-	public TreeMap<Float, ArrayList<Course>> getDailyTimetable() {
+	public static TreeMap<Float, ArrayList<Course>> GenerateTimeTableOfDay(String url) throws Exception {
+		
+		
+		ConfigurationURL(url);
+		loadCalendarFromURL();
+		
+		
+		String dateTime = getDay();
+		mapCourses = BuildTimeTable(dateTime, ADEcal);
+		
 		return mapCourses;
 	}
 	
-	/**
-	 * Generates the timetable of courses for the department for the current day
-	 * @author Xavier Bouchenard
-	 */
-	public void GenerateTimeTableOfDay() {
-		String dateTime = getDay();
-		mapCourses = BuildTimeTable(dateTime);
-	}
-	
-	/**
-	 * Sets an update of the timetable if the courses of the new treemap generated and the old treemap are different
-	 * @author Xavier Bouchenard
-	 */
-	public boolean UpdateTimeTable() {
-		String dateTime = getDay();
-		TreeMap<Float, ArrayList<Course>> mapTemp = null;
-		
-		mapTemp = BuildTimeTable(dateTime);
-		if (mapCourses.hashCode() != mapTemp.hashCode()) {
-			mapCourses.clear();
-			mapCourses = mapTemp;
-			return true;
-		}
-		else return false;
-	}
-	
-	public void UpdateURL(String URL) throws Exception {
-		mapCourses.clear();
-		urlTimeTableDB = null;
-		
-		try {
-			urlTimeTableDB = new URL(URL);
-			System.out.println("Calendar building in progress");
-		}catch (MalformedURLException e) {
-			throw new Exception("Unable to open the connection with this URL:" + URL);
-		}
-		
-		if (urlTimeTableDB != null)	loadCalendarFromURL();
-	}
 	
 	/**
 	 * Builds the timetable for the current day 
@@ -169,11 +102,12 @@ public class ADEHandler implements Serializable{
 	 * @param dateTime	Formatted string which contains the info of the day, month, year
 	 * @return	A TreeMap object in which the courses are sorted according to a starting time
 	 */
-	private TreeMap<Float, ArrayList<Course>> BuildTimeTable(String dateTime) {
-		String professor;
-		String ClassroomName;
+	private static TreeMap<Float, ArrayList<Course>> BuildTimeTable(String dateTime, Calendar ADEcal) {
+		ArrayList<String> professor;
+		String[] ClassroomName;
 		TreeMap<Float, ArrayList<Course>> map = new TreeMap<Float, ArrayList<Course>>();
 		ArrayList<Course> lCourse = null;
+		Course course = null;
 		
 		// for all instances of courses in the ADE file, do ...
 			for (Object o : ADEcal.getComponents("VEVENT")) {
@@ -185,7 +119,24 @@ public class ADEHandler implements Serializable{
 					float TimeArray[] = SetTimes(c);
 					ClassroomName = FindClassName(c);
 					
-					Course course = new Course(ClassroomName, professor, TimeArray[0], TimeArray[1]);
+					if ((ClassroomName.length > 1) && (ClassroomName.length == professor.size())) {
+						for (int i = 0; i < ClassroomName.length; i++) {
+							course = new Course(ClassroomName[i], professor.get(i), TimeArray[0], TimeArray[1]);
+							
+							if (!map.containsKey(TimeArray[0])) {
+								lCourse = new ArrayList<Course>();
+								lCourse.add(course);
+								map.put(TimeArray[0], lCourse);
+							}
+							else {
+								lCourse = map.get(TimeArray[0]);
+								lCourse.add(course);
+							}
+						}
+					}
+					else {
+						course = new Course(ClassroomName[0], professor, TimeArray[0], TimeArray[1]);
+					}
 					
 					if (!map.containsKey(TimeArray[0])) {
 						lCourse = new ArrayList<Course>();
@@ -209,16 +160,28 @@ public class ADEHandler implements Serializable{
 	 * @param C		Component which is an instance of course read in the ADE file
 	 * @return		String which contains the name of the professor for this course
 	 */
-	private String FindProfessor(Component C) {
+	private static ArrayList<String> FindProfessor(Component C) {
+		int i;
+		ArrayList<String> professor = new ArrayList<String>();
+		
 		//	If the kind of course does not have an assigned professor ...
 		if (!C.getProperty("SUMMARY").getValue().equals("P.Col_Réalisation")) {
 			//	Parses the info of the line to extract the professor's name
 			String[] res = C.getProperty("DESCRIPTION").getValue().split("\n");
-			//	Specific case where more information are written
-			if (res[4].equals("LabelCPE"))	return res[5];
-			else return res[3];
+			
+			if (res.length > 4) {
+				for (i = 3; i < res.length-1; i++)	{
+					professor.add(res[i]);
+				}
+			}
+			else professor.add("No professor");
+			
 		}
-		else return "No professor";	
+		else {
+			professor.add("No professor");
+		}
+		
+		return professor;
 	}
 	
 	/**
@@ -228,12 +191,20 @@ public class ADEHandler implements Serializable{
 	 * @param C		Component which is an instance of course read in the ADE file
 	 * @return		String which is the name of the classroom of the course
 	 */
-	private String FindClassName(Component C) {
+	private static String[] FindClassName(Component C) {
+		String[] ClassNames = {"something"};
+		
 		//	If the kind of course does not have an assigned classroom
 		if (!C.getProperty("SUMMARY").getValue().equals("P.Col_Réalisation")) {
-			return C.getProperty("LOCATION").getValue();
+			// Gets a classroom names list:	- 1 classroom for one course
+			//								- > 1 if a collective course or an exam
+			ClassNames = C.getProperty("LOCATION").getValue().split(",");
 		}
-		else return "No defined room";
+		else {
+			ClassNames[0] = "No defined room";
+		}
+		
+		return ClassNames;
 	}
 	
 	/**
@@ -242,8 +213,7 @@ public class ADEHandler implements Serializable{
 	 * @param C		Component which is an instance of course read in the ADE file
 	 * @return		An array of float which corresponds of the starting and the ending time of the course
 	 */
-	@SuppressWarnings("null")
-	private float[] SetTimes(Component C) {
+	private static float[] SetTimes(Component C) {
 		//	Gets the time from the line which is beginning by the "DTSTART" tag at a specific position
 		int begin = Integer.parseInt(C.getProperty("DTSTART").getValue().substring(9, 13));
 		//	Gets the time from the line which is beginning by the "DTEND" tag at a specific position	
@@ -270,7 +240,7 @@ public class ADEHandler implements Serializable{
 	 * @author Xavier Bouchenard 
 	 * @return dateTime		The formatted string
 	 */
-	private String getDay() {
+	private static String getDay() {
 		//	Date of the first build of this timetable
 		LocalDateTime date = LocalDateTime.now();
 		//	Contains the elements needed to identify the current day in the ADE file

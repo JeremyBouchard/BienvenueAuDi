@@ -27,6 +27,16 @@ public class Serialization {
 	 * @author Xavier Bouchenard
 	 */
 	public Serialization() {
+		
+	}
+	
+	/**
+	 * Writes the data in the ApplicationHandler obj
+	 * @author Xavier Bouchenard
+	 * @param obj	ApplicationHandler object to serialize
+	 */
+	@SuppressWarnings("static-access")
+	public void writeData(ApplicationHandler obj) {
 		try {
 			file = new FileOutputStream("dataSaves.txt");
 			try {
@@ -37,18 +47,20 @@ public class Serialization {
 		} catch (FileNotFoundException e) {
 			System.out.println("Unable to create the file called dataSaves.txt");
 		}
-	}
-	
-	/**
-	 * Writes the data in the ApplicationHandler obj
-	 * @author Xavier Bouchenard
-	 * @param obj	ApplicationHandler object to serialize
-	 */
-	@SuppressWarnings("static-access")
-	public void writeData(ApplicationHandler obj) {
+		
 		if (obj.getMapSize() > 0) {
 			try {
-				oos.writeObject(obj);
+				//oos.writeObject(obj.getIPAddress());
+				oos.writeUTF(obj.getIPAddress());
+				oos.flush();
+				
+				oos.writeInt(obj.getConnectionPort());
+				oos.flush();
+				
+				oos.writeObject(obj.getmapADE());
+				oos.flush();
+
+				oos.writeObject(obj.getmapURLs());
 				oos.flush();
 			} catch (IOException e) {
 				System.out.println("Unable to write the content of the ApplicationHandler object");

@@ -2,7 +2,6 @@ package SocketService;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -10,23 +9,19 @@ import java.util.TreeMap;
 
 import Model.Course;
 
-public class TCPClientSocket implements Serializable{
-	/**
-	 * Serial number for serialization
-	 */
-	private static final long serialVersionUID = 1L;
+public class TCPClientSocket {
 	/**
 	 * Contains the IP address of the socket server handled by the main application
 	 */
-	private String IPAddress = null;
+	private static String IPAddress = null;
 	/**
 	 * Corresponds to the input port of the socket server 
 	 */
-	private int conPort = 0;
+	private static int conPort = 0;
 	/**
 	 * Represents the communication between the socket client and the socket server
 	 */
-	private Socket socket = null;
+	private static Socket socket = null;
 	
 	/**
 	 * Constructor of the class, it has nothing to do 
@@ -34,8 +29,8 @@ public class TCPClientSocket implements Serializable{
 	 * @param IPAddress		IP address of the TCP server with the one to connect
 	 * @param port			Input port of the connection
 	 */
-	public TCPClientSocket(String IPAddress, int port) {
-		this.IPAddress = IPAddress;
+	public static void setSocketInfo(String adIP, int port) {
+		IPAddress = adIP;
 		conPort = port;
 	}
 
@@ -44,18 +39,19 @@ public class TCPClientSocket implements Serializable{
 	 * @author Xavier Bouchenard
 	 * @throws IOException 
 	 */
-	public void OpenSocketConnection() throws IOException {
+	public static void OpenSocketConnection() throws IOException {
 		try {
 			socket = new Socket(IPAddress, conPort);
 			System.out.println("The socket connection succeed");
 		} catch (UnknownHostException e) {
 			throw new UnknownHostException("The host machine has not been found.");
 		} catch (IOException e) {
+			e.printStackTrace();
 			throw new IOException("Error: the server is not working yet or the information given are wrong");
-		}
+		} 
 	}
 	
-	public void SendDataSize(int size) throws IOException {
+	public static void SendDataSize(int size) throws IOException {
 		try {
 			ObjectOutputStream obj = new ObjectOutputStream(socket.getOutputStream());
 			obj.writeInt(size);
@@ -74,7 +70,7 @@ public class TCPClientSocket implements Serializable{
 	 * @param dptName	Name of the timetable database
 	 * @throws IOException 
 	 */
-	public void sendData(String dptName, TreeMap<Float, ArrayList<Course>> lCourse) throws IOException {		
+	public static void sendData(String dptName, TreeMap<Float, ArrayList<Course>> lCourse) throws IOException {		
 		try {
 			ObjectOutputStream obj = new ObjectOutputStream(socket.getOutputStream());
 			obj.writeObject(dptName);
@@ -94,7 +90,7 @@ public class TCPClientSocket implements Serializable{
 	 * @param mapSize	Size of the map
 	 * @throws IOException 
 	 */
-	public void SendMapSize(int mapSize) throws IOException {
+	public static void SendMapSize(int mapSize) throws IOException {
 		ObjectOutputStream obj;
 		try {
 			obj = new ObjectOutputStream(socket.getOutputStream());
@@ -111,7 +107,7 @@ public class TCPClientSocket implements Serializable{
 	 * @author Xavier Bouchenard
 	 * @throws IOException 
 	 */
-	public void closeSocketConnection() throws IOException {
+	public static void closeSocketConnection() throws IOException {
 		try {
 			socket.close();
 		} catch (IOException e) {
