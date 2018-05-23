@@ -27,6 +27,13 @@ public class Deserialization {
 	 * 	Constructor of the Deserialization class
 	 */
 	public Deserialization() {
+		
+	}
+	
+	@SuppressWarnings("finally")
+	public ApplicationHandler toDeserialize() {
+		ApplicationHandler appli = null;
+		
 		try {
 			file = new FileInputStream("dataSaves.txt");
 			try {
@@ -37,17 +44,12 @@ public class Deserialization {
 		} catch (FileNotFoundException e) {
 			System.out.println("This file does not exist");
 		}
-	}
-	
-	@SuppressWarnings("finally")
-	public ApplicationHandler toDeserialize() {
-		ApplicationHandler appli = null;
+		
 		try {
 			appli = (ApplicationHandler) ois.readObject();
 		} catch (ClassNotFoundException e) {
 			System.out.println("The ApplicationHandler class has not been found");
 		} catch (IOException e) {
-			e.printStackTrace();
 			System.out.println("Unable to deserialize this file");
 		} finally {
 			if (ois != null) {
