@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class Course implements Serializable{
 	/**
 	 * Name of the course read in the ADE file
 	 */
-	private ArrayList<String> ClassroomName;
+	private String ClassroomName;
 	
 	/**
 	 * List of professor for the course read in the ADE file
@@ -50,8 +50,7 @@ public class Course implements Serializable{
 	 * @param timeArray2	End time of the course
 	 */
 	public Course(String classname, String PName, float timeArray, float timeArray2, String promo) {
-		ClassroomName =  new ArrayList<String>();
-		ClassroomName.add(classname);
+		ClassroomName = classname;
 		ProfessorName = new ArrayList<String>();
 		ProfessorName.add(PName);
 		StartTimeC = timeArray;
@@ -67,7 +66,7 @@ public class Course implements Serializable{
 	 * @param timeArray		Start time of the course
 	 * @param timeArray2	End time of the course
 	 */
-	public Course(ArrayList<String> classname, ArrayList<String> PName, float timeArray, float timeArray2, String promo) {
+	public Course(String classname, ArrayList<String> PName, float timeArray, float timeArray2, String promo) {
 		ClassroomName = classname;
 		ProfessorName = PName;
 		StartTimeC = timeArray;
@@ -80,7 +79,7 @@ public class Course implements Serializable{
 	 * @author Xavier Bouchenard
 	 * @return	Name of the classroom
 	 */
-	public ArrayList<String> ClassName() {
+	public String getClassroomName() {
 		return ClassroomName;
 	}
 	

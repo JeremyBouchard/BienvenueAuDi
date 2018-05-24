@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
-import Model.Course;
+import model.Course;
 
 /**
  * Deserializes an ApplicationHandler object which was serialized at the end of the program
@@ -62,6 +62,8 @@ public class Deserialization {
 			lURL = (HashMap<String, String>) ois.readObject();
 			
 			appli = new ApplicationHandler(IPAddress, conPort, map, lURL);
+			
+			System.out.println("The deserialization has been done");
 			
 			} catch (ClassNotFoundException e) {
 			System.out.println("The ApplicationHandler class has not been found");

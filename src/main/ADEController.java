@@ -1,11 +1,11 @@
-package Main;
+package main;
 
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
-import Controllers.ApplicationHandler;
-import Controllers.Deserialization;
-import Controllers.Serialization;
+import controllers.ApplicationHandler;
+import controllers.Deserialization;
+import controllers.Serialization;
 
 /**
  * Handles the actions of the user and executes the commands
@@ -43,7 +43,10 @@ public class ADEController {
 			
 		appli = deserializer.toDeserialize();
 		if (appli == null)	appli = new ApplicationHandler();
-		else appli.setAppliStop(false);
+		else {
+			appli.setAppliStop(false);
+			ApplicationHandler.UpdateTimeTable();
+		}
 		
 	}
 	

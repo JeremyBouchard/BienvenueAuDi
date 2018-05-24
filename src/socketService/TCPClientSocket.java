@@ -1,4 +1,4 @@
-package SocketService;
+package socketService;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -7,7 +7,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-import Model.Course;
+import model.Course;
 
 public class TCPClientSocket {
 	/**

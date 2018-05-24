@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-import Model.Course;
+import model.Course;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.Component;
@@ -120,10 +120,10 @@ public class ADEHandler {
 					float TimeArray[] = SetTimes(c);
 					ClassroomName = FindClassName(c);
 
-					promo = professor.get(1);
-					professor.remove(1);
+					promo = professor.get(professor.size()-1);
+					professor.remove(promo);
 					
-					if ((ClassroomName.size() > 1) && (ClassroomName.size() == professor.size())) {
+					if (ClassroomName.size() == professor.size()) {
 						for (int i = 0; i < ClassroomName.size(); i++) {
 							course = new Course(ClassroomName.get(i), professor.get(i), TimeArray[0], TimeArray[1], promo);
 							
@@ -138,16 +138,20 @@ public class ADEHandler {
 							}
 						}
 					}
-					else course = new Course(ClassroomName, professor, TimeArray[0], TimeArray[1], promo);
-					
-					if (!map.containsKey(TimeArray[0])) {
-						lCourse = new ArrayList<Course>();
-						lCourse.add(course);
-						map.put(TimeArray[0], lCourse);
-					}
 					else {
-						lCourse = map.get(TimeArray[0]);
-						lCourse.add(course);
+						for (String str : ClassroomName) {
+							course = new Course(str, professor, TimeArray[0], TimeArray[1], promo);
+
+							if (!map.containsKey(TimeArray[0])) {
+								lCourse = new ArrayList<Course>();
+								lCourse.add(course);
+								map.put(TimeArray[0], lCourse);
+							}
+							else {
+								lCourse = map.get(TimeArray[0]);
+								lCourse.add(course);
+							}
+						}
 					}
 				}			
 			}
@@ -165,22 +169,29 @@ public class ADEHandler {
 	private static ArrayList<String> FindProfessor(Component C) {
 		int i;
 		ArrayList<String> professor = new ArrayList<String>();
+
+		//	Parses the info of the line to extract the professor's name
+		String[] res = C.getProperty("DESCRIPTION").getValue().split("\n");
 		
 		//	If the kind of course does not have an assigned professor ...
-		if (!C.getProperty("SUMMARY").getValue().equals("P.Col_Réalisation")) {
-			//	Parses the info of the line to extract the professor's name
-			String[] res = C.getProperty("DESCRIPTION").getValue().split("\n");
+		if (!C.getProperty("SUMMARY").getValue().equals("P.Col_Réalisation")) {			
 			
 			if (res.length > 4) {
-				for (i = 2; i < res.length-1; i++)	{
-					professor.add(res[i]);
+				for (i = 3; i < res.length-1; i++)	{
+					if ((!(res[i].contains("3"))) && (!(res[i].contains("4"))) && (!(res[i].contains("5")))) {
+						professor.add(res[i]);
+					}
 				}
+				professor.add(res[2]);
 			}
-			else professor.add("No professor");
-			
+			else {
+			professor.add("No professor");
+			professor.add(res[2]);
+			}
 		}
 		else {
 			professor.add("No professor");
+			professor.add(res[2]);
 		}
 		
 		return professor;

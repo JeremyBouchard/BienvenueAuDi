@@ -1,4 +1,6 @@
-package Main;
+package main;
+
+import controllers.TimeHandler;
 
 public class Main {
 
@@ -6,5 +8,6 @@ public class Main {
 		ADEController ade = new ADEController();
 				
 		ade.launch();
+		new Thread(new TimeHandler()).start();
 	}
 }

@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -32,12 +32,10 @@ public class TimeHandler implements Runnable, Serializable{
 			if (DurationTimeElapsed() && (ApplicationHandler.getMapSize() > 0)) {
 				date = LocalDateTime.now();
 				ApplicationHandler.UpdateTimeTable();
-				ApplicationHandler.SendTCPCourses();
 			}
 			else if (IsANewDay() && (ApplicationHandler.getMapSize() > 0)) {
 				date = LocalDateTime.now();
 				ApplicationHandler.UpdateTimeTable();
-				ApplicationHandler.SendTCPCourses();
 			}
 			
 			if (ApplicationHandler.AppliStop()) {

@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

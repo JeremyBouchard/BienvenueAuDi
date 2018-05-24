@@ -1,8 +1,8 @@
-package Controllers;
+package controllers;
 
-import SocketService.TCPClientSocket;
-import Controllers.ADEHandler;
-import Model.Course;
+import socketService.TCPClientSocket;
+import controllers.ADEHandler;
+import model.Course;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -51,7 +51,6 @@ public final class ApplicationHandler implements Serializable{
 		mapADEH = new HashMap<String, TreeMap<Float, ArrayList<Course>>>();
 		lURL = new HashMap<String, String>();
 
-		new Thread(new TimeHandler()).start();
 		if (mapADEH.size() > 0) {
 			SendTCPCourses();
 		}
@@ -65,7 +64,7 @@ public final class ApplicationHandler implements Serializable{
 		lURL = urls;
 		
 		StopValue = false;
-		UpdateTimeTable();
+		TCPClientSocket.setSocketInfo(IPAddress, conPort);
 	}
 	
 	
