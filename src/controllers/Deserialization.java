@@ -35,6 +35,7 @@ public class Deserialization {
 	
 	@SuppressWarnings({ "finally", "unchecked" })
 	public ApplicationHandler toDeserialize() {
+		
 		ApplicationHandler appli = null;
 		int conPort = 0;
 		String IPAddress = null;

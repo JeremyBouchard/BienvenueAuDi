@@ -37,6 +37,7 @@ public class Serialization {
 	 */
 	@SuppressWarnings("static-access")
 	public void writeData(ApplicationHandler obj) {
+		
 		try {
 			file = new FileOutputStream("dataSaves.txt");
 			try {
@@ -50,7 +51,6 @@ public class Serialization {
 		
 		if (obj.getMapSize() > 0) {
 			try {
-				//oos.writeObject(obj.getIPAddress());
 				oos.writeUTF(obj.getIPAddress());
 				oos.flush();
 				

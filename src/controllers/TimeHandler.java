@@ -67,11 +67,17 @@ public class TimeHandler implements Runnable, Serializable{
 	 * @return day State of the day change
 	 */
 	private boolean IsANewDay() {
-		boolean day;
+		boolean day = false;
 		
-		if (LocalDateTime.now().getDayOfYear() == date.getDayOfYear())
-			day = true;
-		else day = false;
+		LocalDateTime dayChanged = LocalDateTime.now();
+		
+		if (dayChanged.getYear() == date.getYear()) {
+			if (dayChanged.getDayOfYear() > date.getDayOfYear())
+				day = true;
+			else day = false;
+		}
+		
+		date = LocalDateTime.now();
 		
 		return day;
 	}

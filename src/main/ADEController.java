@@ -46,7 +46,7 @@ public class ADEController {
 		else {
 			appli.setAppliStop(false);
 			ApplicationHandler.UpdateTimeTable();
-		}
+		}		
 		
 	}
 	

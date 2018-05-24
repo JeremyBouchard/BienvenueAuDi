@@ -50,10 +50,8 @@ public final class ApplicationHandler implements Serializable{
 		TCPClientSocket.setSocketInfo(IPAddress, conPort);
 		mapADEH = new HashMap<String, TreeMap<Float, ArrayList<Course>>>();
 		lURL = new HashMap<String, String>();
-
-		if (mapADEH.size() > 0) {
-			SendTCPCourses();
-		}
+		
+		new Thread(new TimeHandler()).start();
 	}
 	
 	public ApplicationHandler(String address, int port, HashMap<String, TreeMap<Float, ArrayList<Course>>> map, 
@@ -64,7 +62,8 @@ public final class ApplicationHandler implements Serializable{
 		lURL = urls;
 		
 		StopValue = false;
-		TCPClientSocket.setSocketInfo(IPAddress, conPort);
+		
+		CheckTCPSocketConf();		
 	}
 	
 	
@@ -231,17 +230,37 @@ public final class ApplicationHandler implements Serializable{
 	}
 	
 	public void showParamSocket() {
-		System.out.println("IP Address: " + IPAddress + "\t Port: " + conPort);
-		if (mapADEH != null) {
-			if (mapADEH.isEmpty()) System.out.println("La map de listes de cours est vide");
-		}
-		else System.out.println("La map de listes de cours est nulle\t=> pas sérialisée !");
-		if (lURL != null) {
-			if (lURL.isEmpty())	System.out.println("La map avec les URLs des fichiers ADE est vide");
-		}
-		else System.out.println("La map avec les URLs des fichiers ADE est nulle\t=> pas sérialisée !");		
+		System.out.println("IP Address: " + IPAddress + "\t Port: " + conPort);		
+		System.out.println("State of the stop value: " + StopValue);
+	}
+	
+	private void CheckTCPSocketConf() {
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+		String value;
+		boolean flag = true;
 		
-		System.out.println("Valeur de la variable d'arret: " + StopValue);
+		while (flag) {
+			System.out.println("Has the IP address of the host machine changed ? (Y/N)");
+			value = sc.nextLine();
+			
+			if (value.equals("Y")) {
+				System.out.println("Please set the new IP address:");
+				IPAddress = sc.nextLine();
+				System.out.println("Please set the new input port:");
+				conPort = sc.nextInt();
+				flag = false;
+			}
+			else if (value.equals("N"))	{
+				System.out.println("No parameters changed");
+				flag = false;
+			}
+			else {
+				System.out.println("Please try to set a valid value");
+			}
+		}		
+		
+		TCPClientSocket.setSocketInfo(IPAddress, conPort);
 	}
 	
 	/**
