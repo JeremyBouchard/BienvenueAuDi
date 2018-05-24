@@ -18,7 +18,7 @@ public class Course implements Serializable{
 	/**
 	 * Name of the course read in the ADE file
 	 */
-	private String ClassroomName;
+	private ArrayList<String> ClassroomName;
 	
 	/**
 	 * List of professor for the course read in the ADE file
@@ -45,7 +45,8 @@ public class Course implements Serializable{
 	 * @param timeArray2	End time of the course
 	 */
 	public Course(String classname, String PName, float timeArray, float timeArray2) {
-		ClassroomName = classname;
+		ClassroomName =  new ArrayList<String>();
+		ClassroomName.add(classname);
 		ProfessorName = new ArrayList<String>();
 		ProfessorName.add(PName);
 		StartTimeC = timeArray;
@@ -60,7 +61,7 @@ public class Course implements Serializable{
 	 * @param timeArray		Start time of the course
 	 * @param timeArray2	End time of the course
 	 */
-	public Course(String classname, ArrayList<String> PName, float timeArray, float timeArray2) {
+	public Course(ArrayList<String> classname, ArrayList<String> PName, float timeArray, float timeArray2) {
 		ClassroomName = classname;
 		ProfessorName = PName;
 		StartTimeC = timeArray;
@@ -72,7 +73,7 @@ public class Course implements Serializable{
 	 * @author Xavier Bouchenard
 	 * @return	Name of the classroom
 	 */
-	public String ClassName() {
+	public ArrayList<String> ClassName() {
 		return ClassroomName;
 	}
 	

@@ -104,7 +104,7 @@ public class ADEHandler {
 	 */
 	private static TreeMap<Float, ArrayList<Course>> BuildTimeTable(String dateTime, Calendar ADEcal) {
 		ArrayList<String> professor;
-		String[] ClassroomName;
+		ArrayList<String> ClassroomName;
 		TreeMap<Float, ArrayList<Course>> map = new TreeMap<Float, ArrayList<Course>>();
 		ArrayList<Course> lCourse = null;
 		Course course = null;
@@ -119,9 +119,9 @@ public class ADEHandler {
 					float TimeArray[] = SetTimes(c);
 					ClassroomName = FindClassName(c);
 					
-					if ((ClassroomName.length > 1) && (ClassroomName.length == professor.size())) {
-						for (int i = 0; i < ClassroomName.length; i++) {
-							course = new Course(ClassroomName[i], professor.get(i), TimeArray[0], TimeArray[1]);
+					if ((ClassroomName.size() > 1) && (ClassroomName.size() == professor.size())) {
+						for (int i = 0; i < ClassroomName.size(); i++) {
+							course = new Course(ClassroomName.get(i), professor.get(i), TimeArray[0], TimeArray[1]);
 							
 							if (!map.containsKey(TimeArray[0])) {
 								lCourse = new ArrayList<Course>();
@@ -134,9 +134,7 @@ public class ADEHandler {
 							}
 						}
 					}
-					else {
-						course = new Course(ClassroomName[0], professor, TimeArray[0], TimeArray[1]);
-					}
+					else course = new Course(ClassroomName, professor, TimeArray[0], TimeArray[1]);
 					
 					if (!map.containsKey(TimeArray[0])) {
 						lCourse = new ArrayList<Course>();
@@ -191,17 +189,20 @@ public class ADEHandler {
 	 * @param C		Component which is an instance of course read in the ADE file
 	 * @return		String which is the name of the classroom of the course
 	 */
-	private static String[] FindClassName(Component C) {
-		String[] ClassNames = {"something"};
+	private static ArrayList<String> FindClassName(Component C) {
+		ArrayList<String> ClassNames = new ArrayList<String>();
 		
 		//	If the kind of course does not have an assigned classroom
 		if (!C.getProperty("SUMMARY").getValue().equals("P.Col_Réalisation")) {
 			// Gets a classroom names list:	- 1 classroom for one course
 			//								- > 1 if a collective course or an exam
-			ClassNames = C.getProperty("LOCATION").getValue().split(",");
+			String[] tab = C.getProperty("LOCATION").getValue().split(",");
+			for (String str : tab) {
+				ClassNames.add(str);
+			}
 		}
 		else {
-			ClassNames[0] = "No defined room";
+			ClassNames.add("No defined room");
 		}
 		
 		return ClassNames;
