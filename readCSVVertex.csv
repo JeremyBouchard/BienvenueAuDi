@@ -8,15 +8,15 @@ CAFET,SallesDiverses,0,3
 BU,SallesDiverses,0,11
 Maintenance Logistique,SallesDiverses,0,18
 Salle du personnel (004),SallesDiverses,0,14
-Association des Ã©lÃ¨ves (002),SallesDiverses,0,13
-Association des Ã©lÃ¨ves (BDS) (003),SallesDiverses,0,15
+Association des élèves (002),SallesDiverses,0,13
+Association des élèves (BDS) (003),SallesDiverses,0,15
 Toilettes Femme BU,SallesDiverses,0,9
 Toilettes Homme BU,SallesDiverses,0,12
-Hall d'entrÃ©e,Orientation,0,1
-Escalier Hall d'entrÃ©e,Orientation,0,16
+Hall d'entrée,Orientation,0,1
+Escalier Hall d'entrée,Orientation,0,16
 Escalier BDE,Orientation,0,7
-Escalier cÃ´tÃ© bibliothÃ¨que,Orientation,0,10
-Escalier cÃ´tÃ© Pascal,Orientation,0,19
+Escalier côté bibliothèque,Orientation,0,10
+Escalier côté Pascal,Orientation,0,19
 Ascenseur 0,Orientation,0,17
 Escalier bas pont,Orientation,0,86
 noeud central entree,Orientation,0,2
@@ -28,14 +28,14 @@ CHAINE PRODUCTION,SallesMachines,1,52
 WINDOWS A,SallesMachines,1,25
 WINDOWS B,SallesMachines,1,28
 MUNDUS(112),Bureaux,1,38
-Bureau Directeur de Polytech Tours (NÃ©ron) (106),Bureaux,1,43
+Bureau Directeur de Polytech Tours (Néron) (106),Bureaux,1,43
 Antenne financiere(108),Bureaux,1,46
 Salle intervenant(109),Bureaux,1,47
 Archive(107),SallesDiverses,1,45
-SecrÃ©tariat (104),Bureaux,1,48
-Bureau Directeur DÃ©partement Informatique(103),Bureaux,1,49
+Secrétariat (104),Bureaux,1,48
+Bureau Directeur Département Informatique(103),Bureaux,1,49
 Bureau responsable administrative (105),Bureaux,1,44
-SecrÃ©tariat Laboratoire informatique(102),Bureaux,1,50
+Secrétariat Laboratoire informatique(102),Bureaux,1,50
 Directeur Laboratoire informatique(101) Billaut,Bureaux,1,51
 scolarite DI,Bureaux,1,30
 S 110,SallesReunions,1,40
@@ -43,11 +43,11 @@ S 111,SallesReunions,1,39
 Toilettes Femme salle reunion,SallesDiverses,1,42
 Toilettes Homme salle reunion,SallesDiverses,1,41
 Escalier scolarite DI,Orientation,1,31
-Escalier chaÃ®ne de production,Orientation,1,22
-Escalier cÃ´tÃ© bibliothÃ¨que 1,Orientation,1,21
+Escalier chaîne de production,Orientation,1,22
+Escalier côté bibliothèque 1,Orientation,1,21
 Escalier haut pont,Orientation,1,36
 113 Administration bureau,Bureaux,1,37
-SecrÃ©tariat  scolarite (127),Bureaux,1,29
+Secrétariat  scolarite (127),Bureaux,1,29
 Escalier windows A,Orientation,1,23
 Toilette Homme WINDOWS A,SallesDiverses,1,27
 Toilette Femme WINDOWS A,SallesDiverses,1,26
@@ -59,8 +59,8 @@ UNIX B (231),SallesMachines,2,57
 MEZZANINE,SallesMachines,2,62
 Toilettes Femme UNIX A,SallesDiverses,2,60
 Toilettes Homme UNIX A,SallesDiverses,2,63
-Escalier cÃ´tÃ© bibliothÃ¨que 2,Orientation,2,54
-Escalier chaÃ®ne de production 2,Orientation,2,53
+Escalier côté bibliothèque 2,Orientation,2,54
+Escalier chaîne de production 2,Orientation,2,53
 Escalier UNIX B,Orientation,2,55
 service info Rousseau Meichel Beaufils (217),Bureaux,2,71
 reserve,SallesDiverses,2,72
@@ -80,7 +80,7 @@ Guengill Galbot Noumen Zahout Boas(201),Bureaux,2,85
 Bureau doctorants(202),Bureaux,2,84
 Reconnaisance des formes et analyse d'images(223),SallesRecherche,2,65
 Ordonnancement et conduite(222),SallesRecherche,2,66
-"Fouille visuelle de donnÃ©es et algorithmes biomimÃ©tiques ""FOVEA""(220)",SallesRecherche,2,67
+Fouille visuelle de données et algorithmes biomimétiques - FOVEA (220),SallesRecherche,2,67
 Ascenseur 2,Orientation,2,56
 Toilette Femme Escalier BU,SallesDiverses,2,68
 Toilette Homme Escalier BU,SallesDiverses,2,69

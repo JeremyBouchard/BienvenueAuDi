@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Class representing a classorRom
+ * Class representing a classRoom
  * @author MariamKonate
  *
  */
@@ -20,6 +20,8 @@ public class ClassRoom extends Room {
 	public ClassRoom(String name, Type type) {
 		super(name, type);
 	}
+	
+	public ClassRoom() {}
 
 	/**
 	 * @return the studentsPromotion
