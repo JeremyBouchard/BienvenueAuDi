@@ -16,10 +16,15 @@ import org.jgrapht.graph.DefaultDirectedWeightedGraph;
  */
 public class ShortestPath implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * to find the shortest path between nod1 and nod2.
+	 * @param graph : the graph where we want to find the shortest path.
+	 * @param nod1 : departure
+	 * @param nod2 : destination
+	 * @return the shortest path
+	 */
 	public List< Vertex > PathBetween(DefaultDirectedWeightedGraph<Vertex,Edge> graph,Information nod1,Information nod2)
 	{
 		DijkstraShortestPath<Vertex,Edge> shortpath= new 	DijkstraShortestPath<Vertex,Edge>(graph);
