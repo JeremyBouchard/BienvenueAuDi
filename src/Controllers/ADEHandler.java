@@ -108,6 +108,7 @@ public class ADEHandler {
 		TreeMap<Float, ArrayList<Course>> map = new TreeMap<Float, ArrayList<Course>>();
 		ArrayList<Course> lCourse = null;
 		Course course = null;
+		String promo = null;
 		
 		// for all instances of courses in the ADE file, do ...
 			for (Object o : ADEcal.getComponents("VEVENT")) {
@@ -118,10 +119,13 @@ public class ADEHandler {
 					
 					float TimeArray[] = SetTimes(c);
 					ClassroomName = FindClassName(c);
+
+					promo = professor.get(1);
+					professor.remove(1);
 					
 					if ((ClassroomName.size() > 1) && (ClassroomName.size() == professor.size())) {
 						for (int i = 0; i < ClassroomName.size(); i++) {
-							course = new Course(ClassroomName.get(i), professor.get(i), TimeArray[0], TimeArray[1]);
+							course = new Course(ClassroomName.get(i), professor.get(i), TimeArray[0], TimeArray[1], promo);
 							
 							if (!map.containsKey(TimeArray[0])) {
 								lCourse = new ArrayList<Course>();
@@ -134,7 +138,7 @@ public class ADEHandler {
 							}
 						}
 					}
-					else course = new Course(ClassroomName, professor, TimeArray[0], TimeArray[1]);
+					else course = new Course(ClassroomName, professor, TimeArray[0], TimeArray[1], promo);
 					
 					if (!map.containsKey(TimeArray[0])) {
 						lCourse = new ArrayList<Course>();
@@ -168,7 +172,7 @@ public class ADEHandler {
 			String[] res = C.getProperty("DESCRIPTION").getValue().split("\n");
 			
 			if (res.length > 4) {
-				for (i = 3; i < res.length-1; i++)	{
+				for (i = 2; i < res.length-1; i++)	{
 					professor.add(res[i]);
 				}
 			}

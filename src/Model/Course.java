@@ -32,9 +32,14 @@ public class Course implements Serializable{
 	private float StartTimeC;
 	
 	/**
-	 * ENd time of the course read in the ADE file
+	 * End time of the course read in the ADE file
 	 */
 	private float EndTimeC;
+	
+	/**
+	 * Stundent promotion
+	 */
+	private String StudentPromo = null;
 	
 	/**
 	 * Constructor of the Course class
@@ -44,13 +49,14 @@ public class Course implements Serializable{
 	 * @param timeArray		Start time of the course
 	 * @param timeArray2	End time of the course
 	 */
-	public Course(String classname, String PName, float timeArray, float timeArray2) {
+	public Course(String classname, String PName, float timeArray, float timeArray2, String promo) {
 		ClassroomName =  new ArrayList<String>();
 		ClassroomName.add(classname);
 		ProfessorName = new ArrayList<String>();
 		ProfessorName.add(PName);
 		StartTimeC = timeArray;
 		EndTimeC = timeArray2;
+		StudentPromo = promo;
 	}
 	
 	/**
@@ -61,11 +67,12 @@ public class Course implements Serializable{
 	 * @param timeArray		Start time of the course
 	 * @param timeArray2	End time of the course
 	 */
-	public Course(ArrayList<String> classname, ArrayList<String> PName, float timeArray, float timeArray2) {
+	public Course(ArrayList<String> classname, ArrayList<String> PName, float timeArray, float timeArray2, String promo) {
 		ClassroomName = classname;
 		ProfessorName = PName;
 		StartTimeC = timeArray;
 		EndTimeC = timeArray2;
+		StudentPromo = promo;
 	}
 	
 	/**
@@ -102,6 +109,10 @@ public class Course implements Serializable{
 	 */
 	public float getEndTime() {
 		return EndTimeC;
+	}
+	
+	public String getStudentPromo() {
+		return StudentPromo;
 	}
 	
 }

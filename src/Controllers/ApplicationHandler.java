@@ -51,7 +51,7 @@ public final class ApplicationHandler implements Serializable{
 		mapADEH = new HashMap<String, TreeMap<Float, ArrayList<Course>>>();
 		lURL = new HashMap<String, String>();
 
-		//new Thread(new TimeHandler()).start();
+		new Thread(new TimeHandler()).start();
 		if (mapADEH.size() > 0) {
 			SendTCPCourses();
 		}
