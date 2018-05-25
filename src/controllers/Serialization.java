@@ -49,8 +49,10 @@ public class Serialization {
 			System.out.println("Unable to create the file called dataSaves.txt");
 		}
 		
+		// if the courses lists map is not empty
 		if (obj.getMapSize() > 0) {
 			try {
+				// Write all the data into the serialized file
 				oos.writeUTF(obj.getIPAddress());
 				oos.flush();
 				

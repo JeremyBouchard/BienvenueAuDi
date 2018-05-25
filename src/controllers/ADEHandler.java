@@ -17,7 +17,6 @@ import net.fortuna.ical4j.model.Component;
  * Used to read and build the daily timetable specific for a department
  * 		In a case of the application exiting, this class could be serialized to store the data in a file which will be read at the PC's restart
  * @author Xavier Bouchenard
- *
  */
 public class ADEHandler {
 	private static TreeMap<Float, ArrayList<Course>> mapCourses = null;
@@ -100,6 +99,7 @@ public class ADEHandler {
 	 * 		=> Can be used for an update or for the first generation of the timetable of the day
 	 * @author Xavier Bouchenard
 	 * @param dateTime	Formatted string which contains the info of the day, month, year
+	 * @param ADEcal	Formatted calendar to use
 	 * @return	A TreeMap object in which the courses are sorted according to a starting time
 	 */
 	private static TreeMap<Float, ArrayList<Course>> BuildTimeTable(String dateTime, Calendar ADEcal) {
@@ -117,12 +117,16 @@ public class ADEHandler {
 				if (c.getProperty("DTSTART").getValue().substring(0, dateTime.length()).contains(dateTime)) {
 					professor = FindProfessor(c);
 					
+					//	Position:	- 0 : Starting time of the course
+					//				- 1: Ending time of the course
 					float TimeArray[] = SetTimes(c);
 					ClassroomName = FindClassName(c);
-
+					
+					// Gets the promotion as the last string in the array and deletes
 					promo = professor.get(professor.size()-1);
 					professor.remove(promo);
 					
+					// Creates for each Course object created, only one classroom is associated
 					if (ClassroomName.size() == professor.size()) {
 						for (int i = 0; i < ClassroomName.size(); i++) {
 							course = new Course(ClassroomName.get(i), professor.get(i), TimeArray[0], TimeArray[1], promo);
@@ -139,6 +143,8 @@ public class ADEHandler {
 						}
 					}
 					else {
+						// No matter how many string ClassroomName is composed, a course can take place in just one classroom
+						//			but it happens that a course have some professors as an exam or a conference,...
 						for (String str : ClassroomName) {
 							course = new Course(str, professor, TimeArray[0], TimeArray[1], promo);
 
@@ -175,15 +181,17 @@ public class ADEHandler {
 		
 		//	If the kind of course does not have an assigned professor ...
 		if (!C.getProperty("SUMMARY").getValue().equals("P.Col_Réalisation")) {			
-			
+			// The string at the 4th position is the group. The other previous positions are empty because of the split done before
 			if (res.length > 4) {
 				for (i = 3; i < res.length-1; i++)	{
 					if ((!(res[i].contains("3"))) && (!(res[i].contains("4"))) && (!(res[i].contains("5")))) {
 						professor.add(res[i]);
 					}
 				}
+				// Addition of the group at the last position in the list
 				professor.add(res[2]);
 			}
+			//	If the previous array is just composed of the group and some blanks cases so 
 			else {
 			professor.add("No professor");
 			professor.add(res[2]);

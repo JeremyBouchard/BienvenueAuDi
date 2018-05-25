@@ -13,14 +13,25 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
 
+/**
+ * Handler of this app which coordinates all actions according to the current state of the system
+ * @author Xavier Bouchenard
+ *
+ */
 public final class ApplicationHandler implements Serializable{
 	/**
 	 * Value declared for the serialization
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * IP Address of the host machine to store
+	 */
 	private String IPAddress = null;
 	
+	/**
+	 * Input port of the TCP server
+	 */
 	private int conPort = 0;
 	
 	/**
@@ -28,6 +39,9 @@ public final class ApplicationHandler implements Serializable{
 	 */
 	private static HashMap<String, TreeMap<Float, ArrayList<Course>>> mapADEH = null;
 	
+	/**
+	 * Stores all the URLs of the ADE file associated to a department name
+	 */
 	private static HashMap<String, String> lURL = null;
 	
 	/**
@@ -37,6 +51,7 @@ public final class ApplicationHandler implements Serializable{
 	
 	/**
 	 * Constructor of the ApplicationHandler class
+	 * @author Xavier Bouchenard
 	 */
 	public ApplicationHandler() {
 		@SuppressWarnings("resource")
@@ -54,6 +69,14 @@ public final class ApplicationHandler implements Serializable{
 		new Thread(new TimeHandler()).start();
 	}
 	
+	/**
+	 * Constructor of the ApplicationHandler class
+	 * @author Xavier Bouchenard
+	 * @param address		IP Address of the host machine
+	 * @param port			Input listen port of the TCP server
+	 * @param map			List of courses sorted by department name
+	 * @param urls			List of URLs to join the ADE file related to the department timetable
+	 */
 	public ApplicationHandler(String address, int port, HashMap<String, TreeMap<Float, ArrayList<Course>>> map, 
 			HashMap<String, String> urls) {
 		IPAddress = address;
@@ -117,6 +140,7 @@ public final class ApplicationHandler implements Serializable{
 	public static void UpdateTimeTable() {
 		TreeMap<Float, ArrayList<Course>> map = null;
 		
+		// for all key-value combination ...
 		for (Entry<String, String> mapEntry : lURL.entrySet()) {
 			try {
 				map = ADEHandler.GenerateTimeTableOfDay(mapEntry.getValue());
@@ -154,7 +178,7 @@ public final class ApplicationHandler implements Serializable{
 			lURL.replace(dbName, lURL.get(dbName), newURL);
 			
 			try {
-			map = ADEHandler.GenerateTimeTableOfDay(newURL);
+				map = ADEHandler.GenerateTimeTableOfDay(newURL);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -219,6 +243,11 @@ public final class ApplicationHandler implements Serializable{
 		
 	}
 	
+	/**
+	 * Sends the number of timetable to send
+	 * @author Xavier Bouchenard
+	 * @param size		Number of courses list to send
+	 */
 	private static void SendDataSize(int size) {
 		try {
 			TCPClientSocket.OpenSocketConnection();
@@ -229,11 +258,19 @@ public final class ApplicationHandler implements Serializable{
 		}
 	}
 	
+	/**
+	 * Displays the TCP settings and the application state: false if running or true if not
+	 * @author Xavier Bouchenard
+	 */
 	public void showParamSocket() {
 		System.out.println("IP Address: " + IPAddress + "\t Port: " + conPort);		
 		System.out.println("State of the stop value: " + StopValue);
 	}
 	
+	/**
+	 * Asks for TCP settings changes when reading and parsing the serialized file
+	 * @author Xavier Bouchenard
+	 */
 	private void CheckTCPSocketConf() {
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
@@ -272,18 +309,38 @@ public final class ApplicationHandler implements Serializable{
 		return mapADEH.size();
 	}
 	
+	/**
+	 * Returns the ADE map of courses lists build previously to write in the serialized file
+	 * @author Xavier Bouchenard
+	 * @return		HashMap which contains for each department a list of courses sorted per increasing starting time
+	 */
 	public HashMap<String, TreeMap<Float, ArrayList<Course>>> getmapADE() {
 		return mapADEH;
 	}
 	
+	/**
+	 * Returns the URLs map 
+	 * @author Xavier Bouchenard
+	 * @return	A map of URLs for each department
+	 */
 	public HashMap<String, String> getmapURLs() {
 		return lURL;
 	}
 	
+	/**
+	 * Returns the input port of the TCP server
+	 * @author Xavier Bouchenard
+	 * @return		Input server port for TCP connection attempt
+	 */
 	public int getConnectionPort() {
 		return conPort;
 	}
 	
+	/**
+	 * Returns the IP address of the host TCP server machine
+	 * @author Xavier Bouchenard
+	 * @return		IP address
+	 */
 	public String getIPAddress() {
 		return IPAddress;
 	}

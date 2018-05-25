@@ -222,6 +222,11 @@ public class ADEController {
 		serializer.writeData(appli);
 	}
 	
+	/**
+	 * Calls the ApplicationHandler method to display the TCP settings on screen
+	 * @author Xavier Bouchenard
+	 * @param appli			ApplicationHandler object to use
+	 */
 	private void ShowParamSocket(ApplicationHandler appli) {
 		appli.showParamSocket();
 	}

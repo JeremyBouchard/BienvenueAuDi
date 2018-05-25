@@ -12,8 +12,7 @@ import model.Course;
 
 /**
  * Deserializes an ApplicationHandler object which was serialized at the end of the program
- * @author Xavier
- *
+ * @author Xavier Bouchenard
  */
 public class Deserialization {
 	/**
@@ -33,6 +32,11 @@ public class Deserialization {
 		
 	}
 	
+	/**
+	 * Called to read and parse the serialized file and create another ApplicationHandler object which become usable
+	 * @author Xavier Bouchenard
+	 * @return
+	 */
 	@SuppressWarnings({ "finally", "unchecked" })
 	public ApplicationHandler toDeserialize() {
 		
@@ -54,6 +58,8 @@ public class Deserialization {
 		}
 		
 		try {
+			
+			// Writes all the ApplicationHandler data to serialize
 			IPAddress = ois.readUTF();
 
 			conPort = ois.readInt();

@@ -3,6 +3,11 @@ package controllers;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * Handles the elapsed time between two different periods of time and acts consequently
+ * @author Xavier Bouchenard
+ *
+ */
 public class TimeHandler implements Runnable, Serializable{
 	/**
 	 * Default value to serialize this class

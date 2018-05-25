@@ -110,6 +110,10 @@ public class Course implements Serializable{
 		return EndTimeC;
 	}
 	
+	/**
+	 * Gets the student promotion concerned by this course
+	 * @return
+	 */
 	public String getStudentPromo() {
 		return StudentPromo;
 	}

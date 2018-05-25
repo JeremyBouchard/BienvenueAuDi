@@ -9,6 +9,11 @@ import java.util.TreeMap;
 
 import model.Course;
 
+/**
+ * Socket TCP client class which is in charge to send all the data needed
+ * @author Xavier Bouchenard
+ *
+ */
 public class TCPClientSocket {
 	/**
 	 * Contains the IP address of the socket server handled by the main application
@@ -51,6 +56,11 @@ public class TCPClientSocket {
 		} 
 	}
 	
+	/**
+	 * Gets the number of data to receive
+	 * @param size				Number of data to receive
+	 * @throws IOException		Exception throwed when an error occured
+	 */
 	public static void SendDataSize(int size) throws IOException {
 		try {
 			ObjectOutputStream obj = new ObjectOutputStream(socket.getOutputStream());
