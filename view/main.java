@@ -31,19 +31,20 @@ import org.jgrapht.ext.*;
 public class main {
 
 	static DefaultDirectedWeightedGraph<Vertex,Edge>  g = null;
-	
+
 	public static void main(String[] args) throws IOException 
 	{
-		
-		
-		new Thread(new CommSource(3000)).start();
+
+
+		//new Thread(new CommSource(3000)).start();
 
 
 		g = new DefaultDirectedWeightedGraph<Vertex,Edge>(Edge.class);
 
 		//Pour les vertex
 		ReadCSVVertex vertexReader = new ReadCSVVertex();
-		vertexReader.setPath("C:/Users/Jeremy/Google Drive/_Proffesionnel_Drive/WorkspaceEclipse/DiProject/src/readCSVVertex.csv");
+		vertexReader.setPath("C:/Users/Jeremy/Google Drive/_Proffesionnel_Drive/WorkspaceEclipse/DiProject/src/readCSVVertex.csv"
+				);
 		vertexReader.convertCSV();
 		List<Vertex> vertexList = vertexReader.getListVertex();
 		//System.out.println(vertexReader.getListNoeud());
@@ -186,28 +187,28 @@ public class main {
 		//tabVertex[0].getId();
 		//(Room)tabVertex[0]).getNumber();
 
-		//new Thread( new ManageConnexions(g)).run();
+		new Thread( new ManageConnexions(g)).run();
 	}
-
+	/*
 	public static void addSrcData (HashMap<String, TreeMap<Float, ArrayList<Course>>> hMap) {
 		TreeMap<Float, ArrayList<Course>> map = hMap.get("DI");
 		for (Entry<Float, ArrayList<Course>> mapEntry : map.entrySet()) {
 				for (Course cours : mapEntry.getValue()) {
-					
+
 					//Debug
 					System.out.println(cours.getStartTime()+ " -> "+cours.getEndTime());
 					System.out.println("Prof : " + cours.getProfName());
 					System.out.println("Promo : " + cours.getStudentPromo());
 					System.out.println("Salle : " + cours.getClassroomName());
 					System.out.println("___________________________");
-					
+
 				}
 		}
-		
+	
 		System.out.println(hMap);
-		
-		
+	 */	
 
-	}
+
 }
+
 

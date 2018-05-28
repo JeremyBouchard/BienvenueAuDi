@@ -142,7 +142,7 @@ public class CommSource implements Runnable{
 				e.printStackTrace();
 			}
 		}
-		main.addSrcData(hMap);
+		//main.addSrcData(hMap);
 		
 		
 	}
