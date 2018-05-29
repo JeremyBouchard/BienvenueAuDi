@@ -88,9 +88,10 @@ public class Controller{
 	}
 	
 	public void initConnexion () {
-		new Thread( new ManageConnexions(g)).run();
-		new Thread(new CommSource(3000)).start();
 		
+		
+		new Thread(new CommSource(3000)).start();
+		new Thread( new ManageConnexions(g)).run();
 	}
 }
 

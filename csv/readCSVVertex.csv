@@ -1,0 +1,87 @@
+NOEUD,TYPE,ETAGE,ID Noeud
+LOVELACE,Amphis,0,8
+PASCAL,Amphis,0,20
+TURING,Amphis,0,4
+BABBAGE,SallesTD,0,5
+BDE,SallesDiverses,0,6
+CAFET,SallesDiverses,0,3
+BU,SallesDiverses,0,11
+Maintenance Logistique,SallesDiverses,0,18
+Salle du personnel (004),SallesDiverses,0,14
+Association des eleves (002),SallesDiverses,0,13
+Association des eleves (BDS) (003),SallesDiverses,0,15
+Toilettes Femme BU,SallesDiverses,0,9
+Toilettes Homme BU,SallesDiverses,0,12
+Hall d'entree,Orientation,0,1
+Escalier Hall d'entree,Orientation,0,16
+Escalier BDE,Orientation,0,7
+Escalier cote bibliotheque,Orientation,0,10
+Escalier cote Pascal,Orientation,0,19
+Ascenseur 0,Orientation,0,17
+Escalier bas pont,Orientation,0,86
+noeud central entree,Orientation,0,2
+BDA,SallesDiverses,1,32
+BOOLE,SallesTD,1,35
+SHANNON,SallesTD,1,33
+VON NEUMAN,SallesTD,1,34
+CHAINE PRODUCTION,SallesMachines,1,52
+WINDOWS A,SallesMachines,1,25
+WINDOWS B,SallesMachines,1,28
+MUNDUS(112),Bureaux,1,38
+Bureau Directeur de Polytech Tours (Neron) (106),Bureaux,1,43
+Antenne financiere(108),Bureaux,1,46
+Salle intervenant(109),Bureaux,1,47
+Archive(107),SallesDiverses,1,45
+Secretariat (104),Bureaux,1,48
+Bureau Directeur Departement Informatique(103),Bureaux,1,49
+Bureau responsable administrative (105),Bureaux,1,44
+Secretariat Laboratoire informatique(102),Bureaux,1,50
+Directeur Laboratoire informatique(101) Billaut,Bureaux,1,51
+scolarite DI,Bureaux,1,30
+S 110,SallesReunions,1,40
+S 111,SallesReunions,1,39
+Toilettes Femme salle reunion,SallesDiverses,1,42
+Toilettes Homme salle reunion,SallesDiverses,1,41
+Escalier scolarite DI,Orientation,1,31
+Escalier chaine de production,Orientation,1,22
+Escalier cote bibliotheque 1,Orientation,1,21
+Escalier haut pont,Orientation,1,36
+113 Administration bureau,Bureaux,1,37
+Secretariat  scolarite (127),Bureaux,1,29
+Escalier windows A,Orientation,1,23
+Toilette Homme WINDOWS A,SallesDiverses,1,27
+Toilette Femme WINDOWS A,SallesDiverses,1,26
+Ascenseur 1,Orientation,1,24
+S 228-229,SallesTD,2,61
+TP SYSTEME,SallesMachines,2,64
+UNIX A (230),SallesMachines,2,59
+UNIX B (231),SallesMachines,2,57
+MEZZANINE,SallesMachines,2,62
+Toilettes Femme UNIX A,SallesDiverses,2,60
+Toilettes Homme UNIX A,SallesDiverses,2,63
+Escalier cote bibliotheque 2,Orientation,2,54
+Escalier chaine de production 2,Orientation,2,53
+Escalier UNIX B,Orientation,2,55
+service info Rousseau Meichel Beaufils (217),Bureaux,2,71
+reserve,SallesDiverses,2,72
+Lente Darwiche Martineau (209),Bureaux,2,73
+Conte Barrat Cherni (208),Bureaux,2,74
+T'KINDT Raveau Shang (207),Bureaux,2,75
+Ragot Cardot Hidane (211),Bureaux,2,76
+Makris Ramel Brouard (206),Bureaux,2,77
+Delalandre Mille Olivier (212),Bureaux,2,78
+Soukhal Martineau Mendoza (205),Bureaux,2,79
+Froger Haykal llosa (213),Bureaux,2,80
+Venturini Serres (204),Bureaux,2,81
+Rolland esswein Tacquard (214),Bureaux,2,82
+Bocquillon Kergosien Giret (203),Bureaux,2,83
+Maurel Kergosien Gupta Abid (215),Bureaux,2,58
+Guengill Galbot Noumen Zahout Boas(201),Bureaux,2,85
+Bureau doctorants(202),Bureaux,2,84
+Reconnaisance des formes et analyse d'images(223),SallesRecherche,2,65
+Ordonnancement et conduite(222),SallesRecherche,2,66
+Fouille visuelle de donnees et algorithmes biomimetiques - FOVEA (220),SallesRecherche,2,67
+Ascenseur 2,Orientation,2,56
+Toilette Femme Escalier BU,SallesDiverses,2,68
+Toilette Homme Escalier BU,SallesDiverses,2,69
+salle de visio-enseignement (216),SallesDiverses,2,70

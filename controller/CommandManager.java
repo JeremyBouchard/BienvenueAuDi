@@ -161,7 +161,7 @@ public class CommandManager implements Runnable
 		Set<Vertex> vertices=graph.vertexSet();
 		for(Vertex vertex:vertices)
 		{
-			Information info=new Information(vertex.getName(),vertex.getType(),null);
+			Information info=new Information(vertex.getName(),vertex.getType(),"/images/"+ vertex.getId()+".JPG");
 			list.add(info);
 		}
 		return list;
@@ -174,14 +174,15 @@ public class CommandManager implements Runnable
 
 		for(int i=0; i <vertices.size()-1; i++)//For all vertices except the last one
 		{
-			Information info=new Information(vertices.get(i).getName(),vertices.get(i).getType(),null);
+			Information info=new Information(vertices.get(i).getName(),vertices.get(i).getType(),"/images/"+ vertices.get(i).getId()+".JPG");
 			Node node= new Node(info,graph.getEdge(vertices.get(i), vertices.get(i+1)).getDirection()); //
 			nodeList.add(node);
 		}
 		
 		
-		Information info=new Information(vertices.get(vertices.size()-1).getName(),vertices.get(vertices.size()-1).getType(),null);
-		Node node = new Node(info,Direction.None); 
+		Information info=new Information(vertices.get(vertices.size()-1).getName(),vertices.get(vertices.size()-1).getType(),"/images/"+ vertices.get(vertices.size()-1).getId()+".JPG");
+		Node node = new Node(info,Direction.None);
+		nodeList.add(node);
 
 		return nodeList;
 	}
