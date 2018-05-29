@@ -10,7 +10,6 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import model.Course;
-import view.main;
 
 public class CommSource implements Runnable{
 	/**
@@ -30,7 +29,7 @@ public class CommSource implements Runnable{
 	/**
 	 * Contains the lists of all courses generated
 	 */
-	private HashMap<String, TreeMap<Float, ArrayList<Course>>> hMap = null;//Liste des Cours de la journée au DI, trie par Heure debut
+	private HashMap<String, TreeMap<Float, ArrayList<Course>>> hMap = null;//Liste des Cours de la journï¿½e au DI, trie par Heure debut
 	
 	private boolean flag = true;
 	

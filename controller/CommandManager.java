@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
@@ -78,14 +79,23 @@ public class CommandManager implements Runnable
 		Information secondNode = (Information) is2.readObject();
 		/**
 		 * TODO: DO SOMETHING WITH THE FIRST AND SECOND NODE (in this case: get the route)
+		 * 
 		 */
-		System.out.println(firstNode.getName() + " & " + secondNode.getName());
+		/*List<Information> srcDest= new ArrayList<Information>();
+		srcDest.add(firstNode);
+		srcDest.add(secondNode);
+		return srcDest;*/
+		
+		//System.out.println(firstNode.getName() + " & " + secondNode.getName());
+		
+		
+		
 		//shortestPath
 		ShortestPath path=new ShortestPath();
 		//CreateNodList
 		List<Node> node=createList(path.PathBetween(graph, firstNode, secondNode));
 		//CalculateDirection
-		calculDirection(node);
+		//calculDirection(node);
 		//Send node list
 		ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 		oos.writeObject(node);
@@ -170,13 +180,13 @@ public class CommandManager implements Runnable
 		}
 		
 		
-		Information info=new Information(vertices.get(vertices.size()).getName(),vertices.get(vertices.size()).getType(),null);
+		Information info=new Information(vertices.get(vertices.size()-1).getName(),vertices.get(vertices.size()-1).getType(),null);
 		Node node = new Node(info,Direction.None); 
 
 		return nodeList;
 	}
 
-	public void calculDirection(List<Node> list)
+	/*public void calculDirection(List<Node> list)
 	{
 		String path="/Users/MariamKonate/Desktop/ProjetS8/readCSVDirection.csv";
 		ReadCSVDirection readCSV=new ReadCSVDirection();
@@ -207,7 +217,7 @@ public class CommandManager implements Runnable
 			}
 
 		}
-	}
+	}*/
 
 
 }

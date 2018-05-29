@@ -49,24 +49,9 @@ public class ManageConnexions implements Runnable
         }
 
     }
-    public void run()
-    {
-        try
-        {
-            while(true)
-            {
-                socket = socketserver.accept();
-                System.out.println("Tentative de connexion en cours...");
-                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                out = new PrintWriter(socket.getOutputStream());
-                new Thread(new CommandManager(socket,in, out,graph)).run();
-            }
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
+    
+    public void run() {};
+    
     public void run(DefaultDirectedWeightedGraph<Vertex,Edge> graph)
     {
         try

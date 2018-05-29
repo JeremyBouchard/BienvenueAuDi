@@ -104,7 +104,6 @@ public class ReadCSVVertex extends ReadCSV
 					tmpVertex.setId(Integer.parseInt(ligne.get(3)));
 					tmpVertex.setName(ligne.get(0));
 					tmpVertex.setType(Type.valueOf(ligne.get(1)));
-					//listVertex.add(new Vertex(Integer.parseInt(ligne.get(3)), ligne.get(0),Type.valueOf(ligne.get(1)), Integer.parseInt(ligne.get(2))));
 					listVertex.add(tmpVertex);
 				}
 				if(br!=null)
