@@ -4,7 +4,6 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
@@ -170,19 +169,26 @@ public class CommandManager implements Runnable
 	public  List<Node> createList(List<Vertex> vertices)
 	{
 
+		ReadCSVDirection reader = new ReadCSVDirection();
 		List<Node> nodeList=new ArrayList<Node>();
+		
+		
+		Information firstInfo=new Information(vertices.get(0).getName(),vertices.get(0).getType(),"/images/"+ vertices.get(0).getId()+".JPG");
+		Node firstNode = new Node(firstInfo,graph.getEdge(vertices.get(0), vertices.get(1)).getDirection());
+		nodeList.add(firstNode);
 
-		for(int i=0; i <vertices.size()-1; i++)//For all vertices except the last one
+		for(int i=1; i <vertices.size()-1; i++)//For all vertices except the last one
 		{
-			Information info=new Information(vertices.get(i).getName(),vertices.get(i).getType(),"/images/"+ vertices.get(i).getId()+".JPG");
-			Node node= new Node(info,graph.getEdge(vertices.get(i), vertices.get(i+1)).getDirection()); //
-			nodeList.add(node);
+			Information middleInfo=new Information(vertices.get(i).getName(),vertices.get(i).getType(),"/images/"+ vertices.get(i).getId()+".JPG");
+			//Node middleNode= new Node(info,graph.getEdge(vertices.get(i), vertices.get(i+1)).getDirection()); 
+			Node middleNode= new Node(middleInfo,reader.getRealDirection(vertices.get(i-1), vertices.get(i), vertices.get(i+1), graph)); //
+			nodeList.add(middleNode);
 		}
 		
 		
-		Information info=new Information(vertices.get(vertices.size()-1).getName(),vertices.get(vertices.size()-1).getType(),"/images/"+ vertices.get(vertices.size()-1).getId()+".JPG");
-		Node node = new Node(info,Direction.None);
-		nodeList.add(node);
+		Information lastInfo=new Information(vertices.get(vertices.size()-1).getName(),vertices.get(vertices.size()-1).getType(),"/images/"+ vertices.get(vertices.size()-1).getId()+".JPG");
+		Node lastNode = new Node(lastInfo,Direction.None);
+		nodeList.add(lastNode);
 
 		return nodeList;
 	}

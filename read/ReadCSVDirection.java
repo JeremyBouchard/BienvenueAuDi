@@ -7,7 +7,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.jgrapht.graph.DefaultDirectedWeightedGraph;
+
+import model.Direction;
+import model.Edge;
+import model.Vertex;
 
 /**The class extends the abstract class 'ReadCSV' for reading the file of saving directions between classrooms.
  * @author GAUCHER_François, LI_Yuanyuan.
@@ -23,7 +31,7 @@ public class ReadCSVDirection extends ReadCSV
 	/**
 	 * the converting directions matrix.
 	 */
-	private List<List<String>> matrixDirection=new ArrayList<List<String>>();
+	private HashMap<Direction,HashMap<Direction,Direction>> matrixDirection=new HashMap<Direction,HashMap<Direction,Direction>>();
 	
 	/**
 	 * The default constructor.
@@ -38,16 +46,37 @@ public class ReadCSVDirection extends ReadCSV
 	public void initializeMatrix()
 	{
 		
-		List<String> first = Arrays.asList("None","H","B","G","D");
-		List<String> second = Arrays.asList("H","None","H","D","G");
-		List<String> third = Arrays.asList("B","H","None","G","D");
-		List<String> fourth = Arrays.asList("G","G","D","None","H");
-		List<String> fifth = Arrays.asList("D","D","G","H","None");
-		matrixDirection.add(first);
-		matrixDirection.add(second);
-		matrixDirection.add(third);
-		matrixDirection.add(fourth);
-		matrixDirection.add(fifth);
+
+		HashMap<Direction,Direction> north = new HashMap<Direction,Direction>();
+		north.put(Direction.North, Direction.South);
+		north.put(Direction.South, Direction.North);
+		north.put(Direction.East, Direction.West);
+		north.put(Direction.West, Direction.East);
+		
+		HashMap<Direction,Direction> south = new HashMap<Direction,Direction>();
+		south.put(Direction.North, Direction.North);
+		south.put(Direction.South, Direction.South);
+		south.put(Direction.East, Direction.East);
+		south.put(Direction.West, Direction.West);
+		
+		HashMap<Direction,Direction> east = new HashMap<Direction,Direction>();
+		east.put(Direction.North, Direction.East);
+		east.put(Direction.South, Direction.West);
+		east.put(Direction.East, Direction.South);
+		east.put(Direction.West, Direction.North);
+		
+		HashMap<Direction,Direction> west = new HashMap<Direction,Direction>();
+		west.put(Direction.North, Direction.West);
+		west.put(Direction.South, Direction.East);
+		west.put(Direction.East, Direction.North);
+		west.put(Direction.West, Direction.South);
+
+		matrixDirection.put(Direction.North,north);
+		matrixDirection.put(Direction.South,south);
+		matrixDirection.put(Direction.East,east);
+		matrixDirection.put(Direction.West,west);
+			
+		
 	}
 
 	/**
@@ -137,8 +166,24 @@ public class ReadCSVDirection extends ReadCSV
 	 * @param destination : the destination location.
 	 * @return the converting direction between 'source' and 'destination'.
 	 */
-	public String getRealDirection(String source,String destination)
+	public Direction getRealDirection(Vertex sourceV, Vertex actualV, Vertex destV, DefaultDirectedWeightedGraph<Vertex, Edge> g)
 	{
-		return matrixDirection.get(matrixDirection.indexOf(source)).get(matrixDirection.indexOf(destination));
+		Direction res;
+		Direction sourceD;
+		Direction destD;
+		sourceD= g.getEdge(actualV, sourceV).getDirection();
+		destD= g.getEdge(actualV, destV).getDirection();
+		
+		if(sourceD==Direction.None) {
+			res=destD;
+		}else {
+			if (destD==Direction.None){
+			res=Direction.None;
+		}
+			res=matrixDirection.get(sourceD).get(destD);
+		}
+		
+		
+		return res;
 	}
 }
