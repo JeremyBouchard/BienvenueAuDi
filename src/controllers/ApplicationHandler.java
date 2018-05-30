@@ -107,7 +107,6 @@ public final class ApplicationHandler implements Serializable{
 				SendDataSize(1);
 				SendTCPCoursesList(dptName, map);
 			} catch (Exception e) {
-				e.printStackTrace();
 				System.out.println(e.getMessage());
 			}
 			mapADEH.put(dptName, map);			

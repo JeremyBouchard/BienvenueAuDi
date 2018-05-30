@@ -51,7 +51,6 @@ public class TCPClientSocket {
 		} catch (UnknownHostException e) {
 			throw new UnknownHostException("The host machine has not been found.");
 		} catch (IOException e) {
-			e.printStackTrace();
 			throw new IOException("Error: the server is not working yet or the information given are wrong");
 		} 
 	}
