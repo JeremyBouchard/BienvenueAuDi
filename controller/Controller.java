@@ -27,20 +27,20 @@ public class Controller{
 
 		//Read list of edges
 		ReadCSVVertex vertexReader = new ReadCSVVertex();
-		vertexReader.setPath("src/csv/readCSVVertex.csv");
+		vertexReader.setPath("csv/readCSVVertex.csv");
 		vertexReader.convertCSV();
 		List<Vertex> vertexList = vertexReader.getListVertex();
 		//System.out.println(vertexReader.getListNoeud());
 
 		//Read list of Edges with weight
 		ReadCSVPas edgeReader = new ReadCSVPas();
-		edgeReader.setPath("src/csv/readCSVPas.csv");
+		edgeReader.setPath("csv/readCSVPas.csv");
 		edgeReader.convertCSV();
 		List<List<String>> edgeList = edgeReader.getListPas();
 		
 		//Read directions
 		ReadCSVDirection directionReader = new ReadCSVDirection();
-		directionReader.setPath("src/csv/readCSVDirection.csv");
+		directionReader.setPath("csv/readCSVDirection.csv");
 		directionReader.convertCSV();
 		List<List<String>> directionList = directionReader.getListDirection();
 
