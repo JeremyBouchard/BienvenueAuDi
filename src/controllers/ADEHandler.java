@@ -27,10 +27,8 @@ public class ADEHandler {
 	/**
 	 * Configures the URL which will be used to get the timetable file
 	 * @author Xavier Bouchenard
-	 * @param url				URL of the timetable to get
-	 * @param urlTimeTableDB	URL object to build
-	 * @param Calbuilder		Calendar used to build another one
-	 * @throws Exception Exception to catch
+	 * @param url	URL of the timetable to get
+	 * @throws Exception 	Exception to catch
 	 */
 	private static void ConfigurationURL(String url) throws Exception {
 		
@@ -77,11 +75,10 @@ public class ADEHandler {
 	 * Generates the timetable of courses for the department for the current day
 	 * @author Xavier Bouchenard
 	 * @param url			URL to get the ADE file
-	 * @throws Exception 	Exception throwed when an error occured 
+	 * @throws Exception 	Exception throwed when an error occurred 
 	 * @return	A TreeMap object in which the courses are sorted according to a starting time
 	 */
-	public static TreeMap<Float, ArrayList<Course>> GenerateTimeTableOfDay(String url) throws Exception {
-		
+	public static TreeMap<Float, ArrayList<Course>> GenerateTimeTableOfDay(String url) throws Exception {		
 		
 		ConfigurationURL(url);
 		loadCalendarFromURL();

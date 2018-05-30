@@ -31,7 +31,7 @@ public class Serialization {
 	}
 	
 	/**
-	 * Writes the data in the ApplicationHandler obj
+	 * Writes the data in the ApplicationHandler object
 	 * @author Xavier Bouchenard
 	 * @param obj	ApplicationHandler object to serialize
 	 */

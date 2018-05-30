@@ -35,7 +35,7 @@ public class Deserialization {
 	/**
 	 * Called to read and parse the serialized file and create another ApplicationHandler object which become usable
 	 * @author Xavier Bouchenard
-	 * @return
+	 * @return	An ApplicationHandler object after build
 	 */
 	@SuppressWarnings({ "finally", "unchecked" })
 	public ApplicationHandler toDeserialize() {
@@ -59,7 +59,7 @@ public class Deserialization {
 		
 		try {
 			
-			// Writes all the ApplicationHandler data to serialize
+			// Reades all the ApplicationHandler data to deserialize
 			IPAddress = ois.readUTF();
 
 			conPort = ois.readInt();
@@ -68,6 +68,7 @@ public class Deserialization {
 			
 			lURL = (HashMap<String, String>) ois.readObject();
 			
+			//	Creates a new ApplicationHandler object 
 			appli = new ApplicationHandler(IPAddress, conPort, map, lURL);
 			
 			System.out.println("The deserialization has been done");

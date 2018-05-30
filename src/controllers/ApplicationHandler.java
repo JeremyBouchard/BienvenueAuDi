@@ -345,6 +345,11 @@ public final class ApplicationHandler implements Serializable{
 		return IPAddress;
 	}
 	
+	/**
+	 * Returns the state of the stop value
+	 * @author Xavier Bouchenard
+	 * @return	State of the stop value
+	 */
 	public boolean getStopValue() {
 		return StopValue;
 	}

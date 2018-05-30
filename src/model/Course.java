@@ -48,6 +48,7 @@ public class Course implements Serializable{
 	 * @param PName			Name of the professor assigned for this course
 	 * @param timeArray		Start time of the course
 	 * @param timeArray2	End time of the course
+	 * @param promo			Promotion year
 	 */
 	public Course(String classname, String PName, float timeArray, float timeArray2, String promo) {
 		ClassroomName = classname;
@@ -65,6 +66,7 @@ public class Course implements Serializable{
 	 * @param PName			List of professors names assigned for this course
 	 * @param timeArray		Start time of the course
 	 * @param timeArray2	End time of the course
+	 * @param promo			Promotion year
 	 */
 	public Course(String classname, ArrayList<String> PName, float timeArray, float timeArray2, String promo) {
 		ClassroomName = classname;
@@ -112,7 +114,7 @@ public class Course implements Serializable{
 	
 	/**
 	 * Gets the student promotion concerned by this course
-	 * @return
+	 * @return	Promotion year
 	 */
 	public String getStudentPromo() {
 		return StudentPromo;

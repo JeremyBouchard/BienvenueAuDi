@@ -31,7 +31,7 @@ public class TCPClientSocket {
 	/**
 	 * Constructor of the class, it has nothing to do 
 	 * 		the IP Address and communication port are fixed before the launch of the application
-	 * @param IPAddress		IP address of the TCP server with the one to connect
+	 * @param adIP		IP address of the TCP server with the one to connect
 	 * @param port			Input port of the connection
 	 */
 	public static void setSocketInfo(String adIP, int port) {
@@ -42,7 +42,7 @@ public class TCPClientSocket {
 	/**
 	 * Opens a socket connection with the socket server
 	 * @author Xavier Bouchenard
-	 * @throws IOException 
+	 * @throws IOException 	Exception throwed if an opening connection attempt failed 
 	 */
 	public static void OpenSocketConnection() throws IOException {
 		try {
@@ -67,7 +67,7 @@ public class TCPClientSocket {
 			obj.writeInt(size);
 			obj.flush();
 			obj.close();
-			System.out.println("The size of the data to send has been sent to the server");
+			System.out.println("The size of the data to send has been sent to the server\n");
 		} catch(IOException e) {
 			throw new IOException("A problem occured while sending the data size to the server");
 		}
@@ -78,7 +78,7 @@ public class TCPClientSocket {
 	 * @author Xavier Bouchenard
 	 * @param lCourse	List of courses
 	 * @param dptName	Name of the timetable database
-	 * @throws IOException 
+	 * @throws IOException 	Exception throwed if a list of courses has not been sent
 	 */
 	public static void sendData(String dptName, TreeMap<Float, ArrayList<Course>> lCourse) throws IOException {		
 		try {
@@ -88,7 +88,7 @@ public class TCPClientSocket {
 			obj.writeObject(lCourse);
 			obj.flush();
 			obj.close();
-			System.out.println("The data has been sent to the server");
+			System.out.println("The data has been sent to the server\n");
 		} catch (IOException e) {
 			throw new IOException("Failed to give information of the courses to the server.");
 		}
@@ -98,7 +98,7 @@ public class TCPClientSocket {
 	 * Sends the size of the map to the socket server
 	 * @author Xavier Bouchenard
 	 * @param mapSize	Size of the map
-	 * @throws IOException 
+	 * @throws IOException 	Exception throwed in a sending attempt case
 	 */
 	public static void SendMapSize(int mapSize) throws IOException {
 		ObjectOutputStream obj;
@@ -115,7 +115,7 @@ public class TCPClientSocket {
 	/**
 	 * Closes the socket connection
 	 * @author Xavier Bouchenard
-	 * @throws IOException 
+	 * @throws IOException 	Exception throwed if the connection cannot be closed properly
 	 */
 	public static void closeSocketConnection() throws IOException {
 		try {
