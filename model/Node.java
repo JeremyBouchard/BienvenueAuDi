@@ -13,7 +13,7 @@ public class Node implements Serializable
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3124121248466770167L;
 
 	/**
      * List all the information about a node
