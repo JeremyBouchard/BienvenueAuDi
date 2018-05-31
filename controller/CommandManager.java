@@ -17,7 +17,8 @@ import model.Vertex;
 import read.ReadCSVDirection;
 
 /**
- * Class implementing methods to communicate with client
+ * Class implementing methods to communicate with client interpret command
+ * and send back results
  * @author MariamKonate,JeremyBouchard
  *
  */
@@ -31,28 +32,30 @@ public class CommandManager implements Runnable
 
 	/**
 	 * Constructor
-	 * @param socket
-	 * @param in
-	 * @param out
+	 * @param socket the tcp socket
+	 * @param in Input buffer
+	 * @param out output writer
+	 * @param graph the graph
 	 */
 	public CommandManager(Socket socket, BufferedReader in, PrintWriter out,DefaultDirectedWeightedGraph<Vertex,Edge> graph)
 	{
 		this.socket = socket;
 		this.in = in;
-		this.setOut(out);
+		this.out =out;
 		this.graph=graph;
 	}
 
 	/**
-	 * 
-	 * @throws IOException
+	 * Send a list of informations to the client
+	 * each information object represent a vertex
+	 * @throws IOException if there is a problem with the output stream
 	 */
 	public void SendInformations() throws IOException
 	{
 
-		//Create a list of all nodes(information)
+		//Create a list of all Information, one for each vertex
 		List<Information> information =createListInformation(graph);
-		System.err.println("Envoi des informations ..");
+		//System.err.println("Envoi des informations ..");
 		ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 		oos.writeObject(information);
 		oos.flush();
@@ -60,8 +63,8 @@ public class CommandManager implements Runnable
 
 	/**
 	 * 
-	 * @throws IOException
-	 * @throws ClassNotFoundException
+	 * @throws IOException if there is a problem with the output stream
+	 * @throws ClassNotFoundException if the class differ from the one implemented in the client
 	 */
 	public void getRouteRequest() throws IOException, ClassNotFoundException
 	{
@@ -76,25 +79,12 @@ public class CommandManager implements Runnable
 		 */
 		ObjectInputStream is2 = new ObjectInputStream(socket.getInputStream());
 		Information secondNode = (Information) is2.readObject();
-		/**
-		 * TODO: DO SOMETHING WITH THE FIRST AND SECOND NODE (in this case: get the route)
-		 * 
-		 */
-		/*List<Information> srcDest= new ArrayList<Information>();
-		srcDest.add(firstNode);
-		srcDest.add(secondNode);
-		return srcDest;*/
-		
-		//System.out.println(firstNode.getName() + " & " + secondNode.getName());
-		
-		
-		
+
 		//shortestPath
 		ShortestPath path=new ShortestPath();
-		//CreateNodList
+		//CreateNodList with the list of vertex corresponding to the shortest path
 		List<Node> node=createList(path.PathBetween(graph, firstNode, secondNode));
-		//CalculateDirection
-		//calculDirection(node);
+
 		//Send node list
 		ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 		oos.writeObject(node);
@@ -129,8 +119,6 @@ public class CommandManager implements Runnable
 					break;
 				}
 
-
-
 			}
 			catch (IOException | ClassNotFoundException e)
 			{
@@ -139,21 +127,11 @@ public class CommandManager implements Runnable
 
 		}
 	}
-
-	/**
-	 * @return the out
-	 */
-	public PrintWriter getOut() {
-		return out;
-	}
-
-	/**
-	 * @param out the out to set
-	 */
-	public void setOut(PrintWriter out) {
-		this.out = out;
-	}
-
+/**
+ * 
+ * @param graph the graph
+ * @return a list of Information that represent each vertex of the graph
+ */
 	public  List<Information> createListInformation(DefaultDirectedWeightedGraph<Vertex,Edge> graph)
 	{
 		List<Information> list=new ArrayList<Information>();
@@ -165,66 +143,39 @@ public class CommandManager implements Runnable
 		}
 		return list;
 	}
+	/**
+	 * 
+	 * @param vertices a list of vertex to transform into Node (information + direction)
+	 * @return the list of node with the right direction and information
+	 */
 
 	public  List<Node> createList(List<Vertex> vertices)
 	{
 
-		ReadCSVDirection reader = new ReadCSVDirection();
+		ReadCSVDirection reader = new ReadCSVDirection();//Use for calculating the real direction to the next node
 		List<Node> nodeList=new ArrayList<Node>();
-		
-		
+
+		//Special case : The first node
 		Information firstInfo=new Information(vertices.get(0).getName(),vertices.get(0).getType(),"/images/"+ vertices.get(0).getId()+".JPG");
 		Node firstNode = new Node(firstInfo,graph.getEdge(vertices.get(0), vertices.get(1)).getDirection());
 		nodeList.add(firstNode);
 
-		for(int i=1; i <vertices.size()-1; i++)//For all vertices except the last one
+		//All the node in the middle
+		for(int i=1; i <vertices.size()-1; i++)//For all vertices except the last and first one
 		{
 			Information middleInfo=new Information(vertices.get(i).getName(),vertices.get(i).getType(),"/images/"+ vertices.get(i).getId()+".JPG");
-			//Node middleNode= new Node(info,graph.getEdge(vertices.get(i), vertices.get(i+1)).getDirection()); 
-			Node middleNode= new Node(middleInfo,reader.getRealDirection(vertices.get(i-1), vertices.get(i), vertices.get(i+1), graph)); //
+			 
+			//Call the realDirection method
+			Node middleNode= new Node(middleInfo,reader.getRealDirection(vertices.get(i-1), vertices.get(i), vertices.get(i+1), graph)); 
 			nodeList.add(middleNode);
 		}
-		
-		
+
+		//Special case : The last node
 		Information lastInfo=new Information(vertices.get(vertices.size()-1).getName(),vertices.get(vertices.size()-1).getType(),"/images/"+ vertices.get(vertices.size()-1).getId()+".JPG");
 		Node lastNode = new Node(lastInfo,Direction.None);
 		nodeList.add(lastNode);
 
 		return nodeList;
 	}
-
-	/*public void calculDirection(List<Node> list)
-	{
-		String path="/Users/MariamKonate/Desktop/ProjetS8/readCSVDirection.csv";
-		ReadCSVDirection readCSV=new ReadCSVDirection();
-		readCSV.setPath(path);
-		readCSV.convertCSV();
-		for(int i=0;i<list.size()-1;i++)
-		{
-			String direction=readCSV.getDirection(list.get(i).getInformation().getName(), list.get(i+1).getInformation().getName());
-			if(direction.equals("N"))
-			{
-				list.get(i).setDirectionToTake(Direction.North);
-			}
-			else if(direction.equals("S"))
-			{
-				list.get(i).setDirectionToTake(Direction.South);
-			}
-			else if(direction.equals("R"))
-			{
-				list.get(i).setDirectionToTake(Direction.West);
-			}
-			else if(direction.equals("L"))
-			{
-				list.get(i).setDirectionToTake(Direction.East);
-			}
-			else
-			{
-				list.get(i).setDirectionToTake(Direction.None);
-			}
-
-		}
-	}*/
-
 
 }

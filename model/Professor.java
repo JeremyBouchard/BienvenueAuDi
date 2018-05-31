@@ -3,51 +3,33 @@ package model;
 import java.io.Serializable;
 
 /**
+ * 
  * Class representing a professor
- * @author MariamKonate, JeremyBouchard
- *
+ * @author MariamKonate, Jérémy Bouchard
+ * 
  */
-public class Professor  implements Serializable{
+public class Professor {
 
-	/**
-	 * SerialVersion
-	 */
-	private static final long serialVersionUID = 1L;
 
 	private String lastname;
 
 	private String firstname;
-
-	private int salleId;
 	
-	private int defaultRoom;
+	private Room  defaultRoom;
 	
-	/**
-	 * Constructor
-	 * @param lastName
-	 * @param firstname
-	 */
-	public Professor(String lastName,String firstname)
-	{
-		this.setLastname(lastName);
-		this.setFirstname(firstname);
-	}
 	
 	/**
 	 * Constructor
-	 * @param lastname
-	 * @param firstname
-	 * @param salleId
-	 * @param defaultRoom
+	 * @param lastname lastanme of the professor
+	 * @param firstname firstname of the professor
+	 * @param defaultRoom the name of the default room (bureau) of the professor
 	 */
-	public Professor(String lastname,String firstname, int salleId,int defaultRoom)
+	public Professor(String lastname,String firstname,Room defaultRoom)
 	{
 		this.setLastname(lastname);
 		this.setFirstname(firstname);
-		this.setSalleId(salleId);
 		this.setDefaultRoom(defaultRoom);
 	}
-	
 	
 	/**
 	 * Constructor
@@ -86,30 +68,16 @@ public class Professor  implements Serializable{
 	}
 
 	/**
-	 * @return the salleId
-	 */
-	public int getSalleId() {
-		return salleId;
-	}
-
-	/**
-	 * @param salleId the salleId to set
-	 */
-	public void setSalleId(int salleId) {
-		this.salleId = salleId;
-	}
-
-	/**
 	 * @return the defaultRoom
 	 */
-	public int getDefaultRoom() {
+	public Room getDefaultRoom() {
 		return defaultRoom;
 	}
 
 	/**
 	 * @param defaultRoom the defaultRoom to set
 	 */
-	public void setDefaultRoom(int defaultRoom) {
+	public void setDefaultRoom(Room defaultRoom) {
 		this.defaultRoom = defaultRoom;
 	}
 

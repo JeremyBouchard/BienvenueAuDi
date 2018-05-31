@@ -20,7 +20,7 @@ public enum Direction implements Serializable
 
     /**
      * Constructor 
-     * @param s
+     * @param s the name
      */
     private Direction(String s) {
         name = s;
@@ -28,8 +28,8 @@ public enum Direction implements Serializable
 
     /**
      * 
-     * @param otherName
-     * @return
+     * @param otherName to compare with
+     * @return the acording boolean
      */
     public boolean equals(String otherName)
     {
@@ -37,7 +37,7 @@ public enum Direction implements Serializable
     }
 
     /**
-     * surcharge on toString method
+     * overload on toString method
      */
     public String toString() {
         return this.name;

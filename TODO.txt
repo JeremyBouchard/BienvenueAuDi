@@ -1,1 +1,0 @@
-Finishing the classes (attributes,setters, getters comm etc..)

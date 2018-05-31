@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- *	An object of this class will be built once an instance of a course will be read in the 
- *		ADE file.
+ *	An object of this class is built when an instance of a course is read from the 
+ *	ADE file.
  * @author Xavier Bouchenard
  */
 public class Course implements Serializable{
@@ -48,6 +48,7 @@ public class Course implements Serializable{
 	 * @param PName			Name of the professor assigned for this course
 	 * @param timeArray		Start time of the course
 	 * @param timeArray2	End time of the course
+	 * @param promo			The promotion name
 	 */
 	public Course(String classname, String PName, float timeArray, float timeArray2, String promo) {
 		ClassroomName = classname;
@@ -65,6 +66,7 @@ public class Course implements Serializable{
 	 * @param PName			List of professors names assigned for this course
 	 * @param timeArray		Start time of the course
 	 * @param timeArray2	End time of the course
+	 * @param promo			The promotion name
 	 */
 	public Course(String classname, ArrayList<String> PName, float timeArray, float timeArray2, String promo) {
 		ClassroomName = classname;

@@ -1,29 +1,22 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Room usually a classRoom or office extending a vertex
+ * adding a list of professor as field
  * @author MariamKonate,JeremyBouchard
  *
  */
 public class Room extends Vertex {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	private String number;
 
-	private Professor professorList;
-	/**
-	 * Constructor
-	 * @param name
-	 * @param type
-	 */
-	public Room(String name, Type type) {
-		super(name, type);
-	}
+	private List<Professor> professorList =new ArrayList<Professor>();
 
+	
 	/**
 	 * Constructor
 	 */
@@ -49,14 +42,14 @@ public class Room extends Vertex {
 	/**
 	 * @return the professorList
 	 */
-	public Professor getProfessorList() {
+	public List<Professor> getProfessorList() {
 		return professorList;
 	}
 
 	/**
 	 * @param professorList the professorList to set
 	 */
-	public void setProfessorList(Professor professorList) {
+	public void setProfessorList(List<Professor> professorList) {
 		this.professorList = professorList;
 	}
 

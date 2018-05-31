@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  *  Enumeration that lists all the possible type
- *  that a room can take.
+ *  that a vertex can take.
  *  @author Aymane RAMACH, Michel NGATIMO, Morad SANBA
  */
 

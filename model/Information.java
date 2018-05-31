@@ -85,6 +85,7 @@ public class Information implements Serializable
 
     /**
      * Set the path of the image
+     * @param image the image path
      */
     public void setImage(String image) {
         this.image = image;

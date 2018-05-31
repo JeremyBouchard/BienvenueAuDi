@@ -22,7 +22,7 @@ import model.Vertex;
 public class ReadCSVVertex extends ReadCSV
 {
 	/**
-	 * save all the information of classrooms in a matrix. 
+	 * save all the information of classrooms in a matrix of string. 
 	 */
 	private List<List<String>> listNoeud=new ArrayList<List<String>>();
 	/**
@@ -64,8 +64,7 @@ public class ReadCSVVertex extends ReadCSV
 		this.listVertex = listVertex;
 	}
 
-	/* (non-Javadoc)
-	 * @see lire.ReadCSV#convertCSV()
+	/* extract data from the csv to populate the listVertex and the lmatrix of vertex
 	 */
 	@Override
 	public void convertCSV() {
@@ -86,6 +85,7 @@ public class ReadCSVVertex extends ReadCSV
 					
 					Vertex tmpVertex = null;
 
+					//Instantiate the right object depending on the type
 					switch (tmpType) {
 						case Amphis :
 						case SallesMachines:
@@ -106,6 +106,7 @@ public class ReadCSVVertex extends ReadCSV
 					tmpVertex.setType(Type.valueOf(ligne.get(1)));
 					listVertex.add(tmpVertex);
 				}
+				
 				if(br!=null)
 				{
 					br.close();

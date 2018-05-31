@@ -1,61 +1,28 @@
 package model;
 
-import java.io.Serializable;
 
 /**
  * Class representing a Vertex
- * @author MariamKonate, JeremyBouchard
+ * @author Mariam Konate, Jérémy Bouchard
  *
  */
-public class Vertex  implements Serializable{
-
-	/**
-	 * SerialVersion
-	 */
-	private static final long serialVersionUID = 1L;
+public class Vertex  {
+	
 	private  int id;
 	private String name;
 	private Type type;
 	private int etage;
-
 	
-	/**
-	 * Constructor
-	 * @param id
-	 * @param name
-	 * @param type
-	 * @param etage
-	 */
-	public Vertex(int id, String name, Type type, int etage) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.type = type;
-		this.setEtage(etage);
-	}
-
-	
-	/**
-	 * Constructor
-	 * @param name
-	 * @param type
-	 */
-	public Vertex(String name, Type type) {
-		this.setName(name);
-		this.setType(type);
-		id++;
-	}
 	
 	/**
 	 * Constructor
 	 */
 	public Vertex()
 	{
-		id++;
 	}
 
 	/**
-	 * @return the name
+	 * @return the name 
 	 */
 	public String getName() {
 		return name;
@@ -75,7 +42,9 @@ public class Vertex  implements Serializable{
 		return id;
 	}
 
-	
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}

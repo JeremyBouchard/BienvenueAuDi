@@ -11,6 +11,11 @@ import java.util.TreeMap;
 
 import model.Course;
 
+/**
+ * Class for communication with the source client ENT
+ * @author Xavier Bouchenard
+ *
+ */
 public class CommSource implements Runnable{
 	/**
 	*  Sets the socket's server
@@ -147,7 +152,7 @@ public class CommSource implements Runnable{
 	}
 	
 	/**
-	 * Displays the keys of the HashMap
+	 * Convenient class for displaying the keys of the HashMap in the console
 	 * @author Xavier Bouchenard
 	 */
 	private void displayContent() {

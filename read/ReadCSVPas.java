@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import model.Edge;
-import model.Vertex;
+
 
 /**The class extends the abstract class 'ReadCSV' for reading the file of saving distances between classrooms.
  * @author GAUCHER_François, LI_Yuanyuan.
@@ -42,15 +42,9 @@ public class ReadCSVPas extends ReadCSV
 			return listPas;
 		}
 
-		/**
-		 * @param listPas the matrix of distances.
-		 */
-		public void setListPas(List<List<String>> listPas) {
-			this.listPas = listPas;
-		}
 
-		/* (non-Javadoc)
-		 * @see lire.ReadCSV#convertCSV()
+		/* 
+		 * extract data from the csv to populate the listPas
 		 */
 		@Override
 		public void convertCSV() 
@@ -75,11 +69,11 @@ public class ReadCSVPas extends ReadCSV
 			                br=null;
 			            }
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
+						
 						e.printStackTrace();
 					}
 				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 		}

@@ -1,6 +1,6 @@
 package model;
 
-import java.io.Serializable;
+
 import java.util.List;
 import java.util.Set;
 
@@ -9,14 +9,11 @@ import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
 
 /**
- * Class aiming at implementing 
- * the shortestPath method
+ * Class for conveniently calling shortest path algorithm of the JGraph Library
  * @author MariamKonate,JeremyBouchard
  *
  */
-public class ShortestPath implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+public class ShortestPath {
 	
 	/**
 	 * to find the shortest path between nod1 and nod2.
