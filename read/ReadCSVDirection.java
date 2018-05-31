@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
 
@@ -24,11 +25,11 @@ public class ReadCSVDirection extends ReadCSV
 {
 	
 	/**
-	 * the directions matrix
+	 * the directions matrix.
 	 */
 	private List<List<String>> listDirection=new ArrayList<List<String>>();
 	/**
-	 * initialize the converting matrix for the real direction method
+	 * the converting directions matrix.
 	 */
 	private HashMap<Direction,HashMap<Direction,Direction>> matrixDirection=new HashMap<Direction,HashMap<Direction,Direction>>();
 	
@@ -40,10 +41,11 @@ public class ReadCSVDirection extends ReadCSV
 	}
 
 	/**
-	 * initialize the converting matrix for the real direction method
+	 * initialize the converting matrix.
 	 */
 	public void initializeMatrix()
 	{
+		
 
 		HashMap<Direction,Direction> north = new HashMap<Direction,Direction>();
 		north.put(Direction.North, Direction.South);
@@ -73,6 +75,7 @@ public class ReadCSVDirection extends ReadCSV
 		matrixDirection.put(Direction.South,south);
 		matrixDirection.put(Direction.East,east);
 		matrixDirection.put(Direction.West,west);
+			
 		
 	}
 
@@ -84,7 +87,16 @@ public class ReadCSVDirection extends ReadCSV
 	}
 
 	
-	/* extract data from the csv to populate the listDirection
+	/**
+	 * @param listDirection the converting directions matrix.
+	 */
+	public void setListDirection(List<List<String>> listDirection) {
+		this.listDirection = listDirection;
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see lire.ReadCSV#convertCSV()
 	 */
 	@Override
 	public void convertCSV()
@@ -159,6 +171,7 @@ public class ReadCSVDirection extends ReadCSV
 	 * @param g : the graph
 	 * @return the real direction between 'source' and 'destination'.
 	 */
+	
 	public Direction getRealDirection(Vertex sourceV, Vertex actualV, Vertex destV, DefaultDirectedWeightedGraph<Vertex, Edge> g)
 	{
 		Direction res;
